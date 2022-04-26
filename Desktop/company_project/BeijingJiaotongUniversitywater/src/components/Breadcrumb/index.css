@@ -1,0 +1,13 @@
+.layout .breadcrumb-container {
+  padding-bottom: 14px;
+  padding-top: 14px;
+}
+.layout__nav-bar__breadcrumb {
+  display: flex;
+  align-items: center;
+  height: 65px;
+}
+.layout__nav-bar__breadcrumb .ant-breadcrumb {
+  margin-left: 8px;
+  font-size: 14px;
+}

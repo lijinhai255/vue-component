@@ -1,0 +1,104 @@
+.user_All{
+    width: 100%;
+   height: 100%;
+}
+.user_addList{
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    padding: 26px;
+    box-sizing: border-box;
+}
+.user_addList_span_list{
+    width: 400px;
+    line-height: 24px;
+    text-align: justify;
+}
+.user_addList_list{
+display: flex;
+flex-wrap: wrap;
+margin-bottom: 20px;
+}
+.user_addList_span{
+    width: 70px;
+    text-align: right;
+    display: block;
+    margin-right: 10px;
+
+}
+.Operation_log{
+    background-color: white;
+}
+.user_bg{
+    background-color: white;
+    width: 100%;
+    min-height: 89%;
+    padding: 26px;
+    box-sizing: border-box;
+}
+.user_input{
+    width: 270px;
+    height: 34px;
+    border-radius: 4px;
+}
+.save_Btn{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    height: 10%;
+    background-color: white;
+    margin-top: 20px;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    bottom: -26px;
+}
+.save_btn_button{
+    position: absolute;
+    top: 0%;
+    width: 80px;
+    border-radius: 4px;
+    height: 34px;
+}
+.save_btn_button_cancel{
+  right: 110px;
+}
+.save_btn_button_save{
+    right: 20px;
+}
+.restPass{
+    font-size: 14px;
+    color: #333333;
+    margin: 0;
+}
+.searcher{
+    background-color: white;
+    border-radius: 4px;
+    text-align: left;
+}
+.account_bg{
+    background-color: white;
+    box-sizing: border-box;
+    padding-top: 0;
+}
+.account_title{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    line-height: 36px;
+    cursor: pointer;
+    width: 130px;
+    float: right;
+}
+.account_search{
+    background-color: white;
+    // padding: 16px;
+}
+.user_add_res{
+    display: flex;
+    span{
+        margin-left: 50px;
+        color: #09C199;
+        cursor: pointer;
+    }
+}

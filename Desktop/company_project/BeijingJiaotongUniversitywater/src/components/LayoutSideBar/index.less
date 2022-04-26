@@ -1,0 +1,91 @@
+@import '../../styles/var.less';
+
+.layout {
+  &__side-bar {
+    position: relative;
+    z-index: 10;
+    flex: 0 0 @sideBarWidth;
+    box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+    transition: all 0.2s;
+
+    &--dark {
+      background: @menuDarkColor;
+
+      .layout__side-bar-title {
+        color: #fff;
+      }
+    }
+
+    &--light {
+      background-color: #fff;
+      box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
+    }
+
+    &--close {
+      flex: 0 0 @sideBarCloseWidth;
+      width: @sideBarCloseWidth;
+    }
+
+    &--side {
+      min-height: 100vh;
+    }
+
+    &--top {
+      display: flex;
+      align-items: center;
+      box-shadow: none;
+
+      .ant-menu,
+      .ant-menu-submenu {
+        height: @headerHeight;
+        line-height: @headerHeight - 1;
+      }
+    }
+
+    .ant-menu,
+    .ant-menu-submenu {
+      border: none;
+    }
+
+    &__menu {
+      overflow: hidden;
+    }
+
+    &__logo {
+      &--top {
+        width: 200px;
+      }
+    }
+  }
+}
+.layout__side-bar__menu {
+  overflow-y: scroll;
+  height: calc(100vh - 64px);
+}
+.layout__side-bar__menu::-webkit-scrollbar {/*滚动条整体样式*/
+
+  width:4px;/*高宽分别对应横竖滚动条的尺寸*/
+
+  height:4px;
+
+}
+
+.layout__side-bar__menu::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+
+  border-radius:5px;
+
+  -webkit-box-shadow: inset005pxrgba(0,0,0,0.2);
+
+  background:rgba(0,0,0,0.2);  /*设置滚动条颜色*/
+
+}
+
+.layout__side-bar__menu::-webkit-scrollbar-track {/*滚动条里面轨道*/
+
+  -webkit-box-shadow: inset005pxrgba(0,0,0,0.2);
+
+  border-radius:0;
+
+  background:rgba(0,0,0,0.1);
+
+}

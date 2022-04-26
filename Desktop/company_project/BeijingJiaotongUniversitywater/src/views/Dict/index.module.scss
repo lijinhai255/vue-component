@@ -1,0 +1,56 @@
+.dictWrapper {
+  height: 100%;
+  flex-flow: column;
+  display: flex;
+  & > div {
+    background-color: #fff;
+  }
+
+  .header {
+    display: flex;
+    padding: 14px 16px;
+    align-items: center;
+
+    .searcher {
+      width: 200px;
+      margin-right: 20px;
+    }
+    .searchButton {
+      margin-right: 20px;
+    }
+  }
+  .tableWrapper {
+    display: flex;
+    height: 100%;
+    flex-flow: column;
+    // margin-top: 14px;
+    // padding: 10px 16px 16px;
+    padding-top: 0;
+
+    .addDict {
+      align-self: end;
+      padding-right: 0;
+    }
+    .table {
+      clear: both;
+      // margin-top: 5px;
+    }
+  }
+}
+
+.dictModal {
+  :global(.ant-modal-header) {
+    padding: 20px;
+    border-bottom: none;
+  }
+  :global(.ant-modal-body) {
+    padding: 0 20px 24px;
+  }
+  :global(.ant-modal-footer) {
+    border-top: none;
+    padding-top: 0;
+  }
+  :global(.ant-form-item:last-child) {
+    margin-bottom: 0;
+  }
+}

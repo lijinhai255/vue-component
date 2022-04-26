@@ -1,0 +1,116 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.layout--side-bar {
+  flex-direction: row;
+}
+.layout__main {
+  position: relative;
+  flex: 1;
+  height: 100vh;
+  overflow-y: scroll;
+  background-color: #f8f8f8;
+}
+.layout__container {
+  padding: 14px;
+  background-color: #F8F8F8;
+}
+.layout__container--fix {
+  padding-top: 75px;
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column;
+}
+.layout__container--fixed {
+  max-width: 1250px;
+  margin: 0 auto;
+}
+.layout--weak {
+  filter: invert(80%);
+}
+.layout__route {
+  position: relative;
+  height: 100%;
+  flex: 1;
+}
+.layout__route-enter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(40px, 0, 0);
+  opacity: 0;
+}
+.layout__route-enter-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+  transition: all 300ms;
+}
+.layout__route-exit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+.layout__route-exit-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(-40px, 0, 0);
+  opacity: 0;
+  transition: all 300ms;
+}
+:global .changePass .ant-form-item-label {
+  width: 100px;
+}
+.footer_btn {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+.footer_btn_sub {
+  width: 70px;
+  float: right;
+}
+.assistant_block {
+  border-left: 10px solid #F4F4F4;
+  padding: 20px;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 60px;
+}
+.assistant_title {
+  display: flex;
+  justify-content: space-between;
+  color: #666666;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+.assistant_title_color {
+  color: #09C199;
+}
+.assistant_ul {
+  font-size: 14px;
+  color: #333333;
+  margin-bottom: 24px;
+}
+.assistant_ul .title {
+  margin-bottom: 14px;
+}
+.assistant_ul .content {
+  background: #F8FAFA;
+  border-radius: 1px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #666666;
+  letter-spacing: 0;
+  text-align: justify;
+}

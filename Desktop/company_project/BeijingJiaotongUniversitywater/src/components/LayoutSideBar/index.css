@@ -1,0 +1,67 @@
+.layout__side-bar {
+  position: relative;
+  z-index: 10;
+  flex: 0 0 240px;
+  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+  transition: all 0.2s;
+}
+.layout__side-bar--dark {
+  background: #001529;
+}
+.layout__side-bar--dark .layout__side-bar-title {
+  color: #fff;
+}
+.layout__side-bar--light {
+  background-color: #fff;
+  box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
+}
+.layout__side-bar--close {
+  flex: 0 0 80px;
+  width: 80px;
+}
+.layout__side-bar--side {
+  min-height: 100vh;
+}
+.layout__side-bar--top {
+  display: flex;
+  align-items: center;
+  box-shadow: none;
+}
+.layout__side-bar--top .ant-menu,
+.layout__side-bar--top .ant-menu-submenu {
+  height: 65px;
+  line-height: 64px;
+}
+.layout__side-bar .ant-menu,
+.layout__side-bar .ant-menu-submenu {
+  border: none;
+}
+.layout__side-bar__menu {
+  overflow: hidden;
+}
+.layout__side-bar__logo--top {
+  width: 200px;
+}
+.layout__side-bar__menu {
+  overflow-y: scroll;
+  height: calc(100vh - 64px);
+}
+.layout__side-bar__menu::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.layout__side-bar__menu::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset005pxrgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+  /*设置滚动条颜色*/
+}
+.layout__side-bar__menu::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset005pxrgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.1);
+}

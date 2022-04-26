@@ -1,0 +1,48 @@
+// 颜色
+$normal_color:#09C199;
+$primay_color:#1C94ED;
+$warn_color:#09C199;
+$error_color:#ED5555;
+$font_color:#333333;
+// 字体大小
+$normal_size:14px;
+//上下距离
+$ipt_bottom:30px;
+$span_right:11px;
+* {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.normal_size {
+    font-size: $normal_size;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.normal_font_color {
+    color: $normal_color;
+}
+
+.primay_font_color {
+    color: $primay_color;
+}
+.list_ipt{
+    display: flex;
+    font-size:$normal_size;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: $font_color;
+    margin-bottom: $ipt_bottom;
+    .list_ipt_span{
+        margin-right:$span_right ;
+        width:102px;
+        text-align: right;
+    }
+    .list_ipt_num{
+        width:119px;
+    }
+}

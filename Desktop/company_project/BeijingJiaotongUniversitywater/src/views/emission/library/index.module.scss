@@ -1,0 +1,327 @@
+.dictWrapper {
+  height: 100%;
+  flex-flow: column;
+  display: flex;
+  // margin: -16px;
+  & > div {
+    background-color: #fff;
+  }
+  
+  .header {
+    display: flex;
+    padding: 14px 16px 0 16px;
+    align-items: center;
+
+    .searcher {
+      width: 200px;
+      margin-right: 20px;
+    }
+    .searchButton {
+      margin-right: 20px;
+    }
+  }
+  .tableWrapper {
+    display: flex;
+    height: 100%;
+    flex-flow: column;
+    // margin-top: 14px;
+    padding: 10px 16px 16px;
+    padding-top: 0;
+
+    .addDict {
+      align-self: end;
+      padding-right: 0;
+    }
+    .table {
+      clear: both;
+      margin-top: 5px;
+    }
+  }
+}
+
+.dictModal {
+  :global(.ant-modal-header) {
+    padding: 20px;
+    border-bottom: none;
+  }
+  :global(.ant-modal-body) {
+    padding: 0 20px 24px;
+  }
+  :global(.ant-modal-footer) {
+    border-top: none;
+    padding-top: 0;
+  }
+  :global(.ant-form-item:last-child) {
+    margin-bottom: 0;
+  }
+}
+.organization{
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  .left_content,.right_content{
+      // max-width: 880px;
+      // padding: 30px;
+      box-sizing: border-box;
+      padding-top: 0px;
+      padding-bottom: 0;
+  }
+  .left_content{
+      // border-right: 1px solid #F8F8F8 ;
+  }
+  .title{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      // height: 70px;
+      h2{
+          font-family: 'PingFangSC-Medium';
+          font-weight: Medium;
+          font-size: 16px;
+          margin-bottom: 0px;
+
+       }
+       margin-bottom: 30px;
+  }
+  .Upload{
+      width: 90px;
+      height: 90px;
+      border-radius: 45px;
+      background-color: azure;
+      :global(.ant-upload-select-picture-card){
+          width: 90px;
+          height: 90px;
+          border-radius: 45px;
+      }
+  }
+  .acf_subbtn{
+      // width: 100%;
+      // position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 9;
+      margin-bottom: 0;
+      .acf_subbtn_list{
+          display: flex;
+          height: 70px;
+          justify-content: flex-end;
+          align-items: center;
+          border-top: 1px solid #f8f8f8;
+          padding: 24px;
+          box-sizing: border-box;
+          padding-right: 0;
+      }
+      .acf_subbtn_cancel{
+          margin-right: 20px;
+
+      }
+  }
+  :global(.ant-input[disabled]){
+      // background-color: #fff;
+      color: #333333;
+      // border: none;
+      cursor: pointer;
+  }
+  :global(.ant-select-disabled){
+      // background-color: #fff;
+      color: #333333;
+      // border: none;
+  }
+  :global(.ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector){
+      // background-color: #fff;
+      color: #333333;
+
+      // border: none;
+      cursor: pointer;
+
+  }
+  :global(.ant-select-disabled .ant-select-arrow){
+      // border: none;
+      display: none;
+  }
+ 
+  .col{
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          // grid-template-rows: 0.3fr 0.3fr;
+          grid-column-gap: 30px;
+          grid-template-areas: 
+          "a1 a2 a3"
+          "a1 a2 a3"
+          "a4 a4 a8"
+          "a5 a5 a6"
+          "a7 a7 a6";
+          .oneRow{
+            grid-area: a4;
+          }
+          .oneRow1{
+            grid-area: a5;
+          }
+          .oneRow2{
+            grid-area: a7;
+          }
+          .oneRow3{
+            grid-area: a7;
+          }
+          .oneRow4{
+            grid-area: a5;
+          }
+          .oneRow5{
+            grid-area: a7;
+          }
+          .oneRow8{
+            grid-area: a8;
+          }
+  }
+  .noGrid{
+    display: block;
+  }
+  .two{
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 30px;
+    grid-template-areas: 
+    "a1 a2 a3"
+    "a7 a8 a8"
+    "a4 a4 a4"
+    "a5 a5 a5";
+    .oneRow4{
+      grid-area: a1;
+    }
+    .oneRow5{
+      grid-area: a4;
+    }
+    .oneRow6{
+      grid-area: a5;
+    }
+    .oneRow7{
+      grid-area:a7;
+    }
+    .oneRow8{
+      grid-area: a8;
+      display: flex;
+      align-items: center;
+
+    }
+  }
+  .tree{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    // grid-template-rows: 0.3fr 0.3fr;
+    grid-column-gap: 30px;
+    grid-template-areas: 
+    "a1 a2 a3"
+    "a4 a4 a8"
+    "a5 a6 a7"
+    "a1 a2 a3"
+    "a1 a2 a3";
+    .a1{
+      grid-area: a1;
+    }
+    .a2{
+      grid-area: a2;
+    }
+    .a3{
+      grid-area: a3;
+    }
+    .oneRow{
+      grid-area: a4;
+
+    }
+    .oneRow1{
+      grid-area: a5;
+    }
+    .oneRow2{
+      grid-area: a7;
+    }
+    .oneRow3{
+      grid-area: a7;
+    }
+    .oneRow4{
+      grid-area: a5;
+    }
+    .oneRow5{
+      grid-area: a7;
+    }
+    .oneRow8{
+      grid-area: a8;
+    }
+
+  }
+  .fore{
+    display: grid;
+    grid-template-columns: 33% 33% 30%;
+    // grid-template-rows: 0.3fr 0.3fr;
+    grid-column-gap: 30px;
+    grid-template-areas: 
+    "a1 a2 a2"
+    "a3 a3 a3"
+    "a4 a4 a8"
+    "a5 a6 a8"
+    "a15 a16 a8"
+    "a7 a17 a9"
+    "a21 a22 a23"
+    "a11 a12 a13";
+          .a1{
+            grid-area: a1;
+          }
+          .a2{
+            grid-area: a2;
+          }
+          // .a11{
+          //   grid-area: a11;
+          // }
+          // .a12{
+          //   grid-area: a12;
+          // }
+          // .a13{
+          //   grid-area: a13;
+          // }
+          // .a13{
+          //   grid-area: a13;
+          // }
+          .a15{
+            grid-area: a15;
+          }
+          .a16{
+            grid-area: a16;
+          }
+          .a17{
+            grid-area: a17;
+          }
+          .a14{
+            grid-area: a14;
+          }
+          .a21{
+            grid-area: a21;
+          }
+          .a22{
+            grid-area: a22;
+          }
+          .a23{
+            grid-area: a23;
+          }
+          .a7{
+            grid-area: a;
+          }
+          .oneRow2{
+            grid-area: a2;
+          }
+          .oneRow3{
+            grid-area: a3;
+          }
+          .oneRow5{
+            grid-area: a5;
+          }
+          .oneRow6{
+            grid-area: a6;
+          }
+  }
+  .upload{
+    display: grid;
+    grid-template-columns: 33% 32% 30%;
+  }
+
+
+  
+}

@@ -1,0 +1,8 @@
+.wrapper {
+  width: 100%;
+  white-space: nowrap;
+}
+.activeTip {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

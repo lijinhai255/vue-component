@@ -1,0 +1,41 @@
+.reset_pass{
+    color: #09C199;
+    margin-left: 60px;
+    cursor: pointer;
+}
+.restPass_text_apn{
+    width: 80px;
+}
+.restPass_text{
+    text-align: justify;
+    display: flex;
+}
+.reset_pass_p{
+    display: flex;
+}
+.footer_btn{
+    .footer_btn_sub{
+        margin-left: 30px;
+    }
+}
+.chanageForm{
+    .ant-form-item-label{
+        width: 20%;
+    }
+    .submitBtns{
+        margin-bottom: 0px;
+    }
+    .ant-form-item-control-input-content{
+        display: flex;
+        justify-content: flex-end;
+    }
+    .btn{
+        width: 68px;
+        height: 32px;
+        box-shadow: inset 0 -1px 0 0 rgba(0,0,0,0.06);
+border-radius: 4px;
+    }
+    .cancel{
+        margin-right: 10px;
+    }
+}

@@ -1,0 +1,75 @@
+.add_emission_data {
+  background-color: #fff;
+  padding: 20px 20px 194px;
+
+  .ant-form-item-control-input {
+    width: 340px;
+  }
+  .ant-col-8 {
+    display: contents;
+  }
+  .checkbox_style {
+    width: 850px;
+  }
+  .ant-form-item {
+    line-height: 2.5715;
+    display: inline-flex;
+    margin-right: 20px;
+  }
+  .formItems_selectAndMsgBox__3mk3v .ant-form-item {
+    margin-right: 0;
+  }
+  .ant-form-item-hidden {
+    width: 0;
+    height: 0;
+    margin: 0;
+  }
+  .ant-checkbox-wrapper {
+    margin-right: 30px;
+  }
+  .ant-checkbox-group-item {
+    margin-right: 30px;
+  }
+  .ant-form-item-label > label {
+    width: 133px;
+    display: block;
+  }
+  .basic_data {
+    max-width: 1600px;
+  }
+
+  &_title {
+    font-size: 14px;
+    line-height: 1;
+    color: #333333;
+    margin: 16px 0 30px 10px;
+  }
+
+  &_title:first-child {
+    margin-top: 0;
+  }
+
+  .addlist_content_From {
+    overflow: hidden;
+  }
+  .submit_button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 15px 0;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    .ant-form-item-control {
+      display: flex;
+      align-items: flex-end;
+    }
+    .ant-form-item-control-input {
+      width: auto;
+    }
+    button {
+      margin-right: 20px;
+    }
+  }
+}

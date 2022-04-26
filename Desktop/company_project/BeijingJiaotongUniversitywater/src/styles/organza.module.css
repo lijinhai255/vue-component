@@ -1,0 +1,21 @@
+* {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.normal_size {
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  margin-right: 30px;
+  cursor: pointer;
+}
+
+.normal_font_color {
+  color: #09C199;
+}
+
+.primay_font_color {
+  color: #1C94ED;
+}

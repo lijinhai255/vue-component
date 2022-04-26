@@ -1,0 +1,126 @@
+.from_companyInfo{
+    // background-color: red;
+    display: grid;
+    grid-template-columns: 1fr ;
+    grid-column-gap: 30px;
+    .labelTs{
+        // background: red;
+        :global(.ant-form-item-no-colon){
+            opacity: 0;
+        }
+    }
+    .spanText{
+        font-family: PingFangSC-Regular;
+font-weight: Regular;
+font-size: 12px;
+color: #999999;
+
+    }
+    :global(.ant-upload-list-picture-card-container){
+        width: 150px;
+    }
+    :global( .ant-upload-list-item){
+        padding: 0;
+    }
+    :global(.ant-upload-list-picture-card .ant-upload-list-item-thumbnail img){
+        object-fit: cover;
+    }
+    :global(.ant-input[disabled]){
+        background: #fff;
+        font-family: PingFangSC-Regular;
+        font-weight: Regular;
+        font-size: 14px;
+        color: #333333;
+        border: none;
+
+    }
+    :global(.ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector){
+        background: #fff;
+        font-family: PingFangSC-Regular;
+        font-weight: Regular;
+        font-size: 14px;
+        color: #333333;
+        border: none;
+    }
+    :global(.ant-select-disabled .ant-select-arrow){
+        display: none;
+    }
+    :global(.ant-form-item){
+        margin-bottom: 20px;
+    }
+}
+.h2Text{
+    font-family: PingFangSC-Semibold;
+    font-weight: Semibold;
+    font-size: 18px;
+    color: #333333;
+    margin-bottom: 30px;
+}
+.h3Text{
+    font-family: PingFangSC-Semibold;
+    font-weight: Semibold;
+    font-size: 14px;
+    color: #333333;
+    margin-bottom: 20px;
+}
+.button{
+    width: 280px;
+    background: #09C199;
+    border-radius: 4px;
+    font-family: PingFangSC-Medium;
+    font-weight: Medium;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+}
+.pText{
+    font-family: PingFangSC-Regular;
+    font-weight: Regular;
+    font-size: 14px;
+    color: #333333;
+    margin-bottom: 20px;
+}
+.spanGreen{
+    height: 20px;
+    font-family: PingFangSC-Regular;
+    font-weight: Regular;
+    font-size: 14px;
+    color: #09C199;
+    cursor: pointer;
+
+}
+.organizationCon{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap:0 50px;
+    // grid-auto-rows: minmax(60px, auto);
+     .orgDetailConTitle{
+         margin-right: 10px;
+         color: #888888;
+     }
+    //  div{
+    //      display: flex;
+    //      align-items: center;
+    //      width: 100%;
+    //      align-items: center;
+    //  }
+     .changStatus{
+         margin-left: 30px;
+     }
+    .oneName{ grid-column-start: span 1;
+    
+        margin-bottom: 20px;
+    
+    }.twoName{ grid-column-start: span 2;
+     margin-bottom: 0px;
+     margin-bottom: 20px;
+    }.threeName{ grid-column-start: span 3;
+        margin-bottom: 20px;
+    }
+    .log{
+        text-align: justify;
+        max-width: 83%;
+        font-weight: 400;
+    }
+}

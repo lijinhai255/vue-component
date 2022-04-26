@@ -1,0 +1,206 @@
+.loginContent{
+    width: 400px;
+    max-height: 450px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 50px 0 rgba(255,255,255,0.48);
+    border-radius: 10px;
+    padding: 40px;
+    box-sizing: border-box;
+    .codeforget{
+        margin-bottom: 20px;
+        margin-top: 20px;    height: 20px;
+    }
+    .codeLineitemlogin{
+        margin-top: 50px;
+        height: 20px;
+        margin-bottom: 0px;
+    }
+    .loginforgreen{
+        width: 100%;
+        text-align: right;
+        display: inline-block;
+        color: #09C199;
+        cursor: pointer;
+        }
+    .lofinfilter{
+        display: flex;
+        font-family: PingFangSC-Regular;
+font-weight: 400;
+font-size: 20px;
+align-items: center;
+color: #666666;
+margin-bottom: 50px;
+cursor: pointer;
+.normalspan{
+color: #09C199;
+}
+
+.normalline{
+    width: 1px; 
+    display: inline-block;
+   height: 20px;
+   background: #DDDDDD;
+   margin: 0 24px;
+}
+    }
+    .codeLineitem{
+        height: 32px;   
+         margin-bottom: 0px;
+    }
+    .linecodeClass{
+        width: 67%;
+        height: 44px;
+        border-right: none;
+        box-shadow: none;
+        border: none;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        position: relative;
+    }
+ .line{
+     width: 1px;
+     height: 24px;
+     background-color: #DDDDDD;
+     display: block;
+ }
+    .linecodeClass:focus-visible{
+        border:none;
+        border-right: none;
+        box-shadow: none;
+    }
+    .codetitle{
+        font-family: PingFangSC-Medium;
+        font-weight: 500;
+        font-size: 20px;
+        color: #333333;
+        letter-spacing: 0;
+    }
+    .findcode{
+        margin-bottom: 30px;
+    }
+    .codeLine{
+        height: 68px;
+        margin-bottom: 0px !important;
+     
+    }
+    .codeLine74{
+        height: 74px;
+        margin-bottom: 0px !important;
+     
+    }
+    .linecode{
+        border: 1px solid #DDDDDD;
+        height: 100%;
+        display: flex;
+        border-radius: 4px;
+        align-items: center;
+    }
+    .linecode_check{
+        border: 1px solid #09C199;
+        height: 100%;
+        display: flex;
+        border-radius: 4px;
+        align-items: center;
+    }
+    .linecode_error{
+        border: 1px solid #ED5555;
+        height: 100%;
+        display: flex;
+        border-radius: 4px;
+        align-items: center;
+    }
+    .alsendcode{
+        color: #999999;
+    }
+    .codetip{
+        width: 100%;
+        display: block;
+        text-align: right;
+        font-size: 14px;
+        color: #999999;    position: absolute;
+    }
+    .sendcode{
+        height: 42px;
+        padding: 0px;
+        margin: 0px;
+        width: 33%;
+        line-height: 41px;
+        position: relative;
+    }
+    .codelist{
+
+    }
+    .codeItem{
+        height: 44px;
+        margin-bottom: 0px;
+        box-sizing: border-box;
+        border-radius: 4px;
+        span{
+            height: 44px;line-height: 35px;
+            input{
+                height: 44px;
+            }
+        }
+    }
+    .ant-input-group-addon{
+        border: none;
+    }
+    .subbtns{
+        width: 100%;
+        height: 44px;
+        border-radius: 4px;
+        margin-top: 0px;
+    }
+    .subbtns30{
+        width: 100%;
+        height: 44px;
+        border-radius: 4px;
+        margin-top: 30px;
+    }
+    .logintext{
+        padding-top: 10px;
+        display: block;
+        width: 100%;
+        text-align: center;
+        color: #666666;
+        span{
+            color: #09C199;
+            cursor: pointer;
+        }
+    }
+    .logintextgreen{
+        color: #09C199;
+        cursor: pointer;
+        text-align: center;
+        width: 100%;
+        display: block;
+        margin-top: 50px;
+    }
+    .logintextgreenforget{
+        color: #09C199;
+        cursor: pointer;
+        text-align: center;
+        width: 100%;
+        display: block;
+    }
+    .codeloginbtn{
+        width: 100%;
+        height: 44px;
+    }
+    :global(.ant-form-item-explain-error){
+        font-size: 14px;
+        line-height: 22px;
+    }
+    .sendpassbtn{
+        
+        width: 100%;
+        height: 44px;
+        border-radius: 4px;
+        margin-top: 0px;
+    }
+    // 密码登录|验证码登录
+    .codelogin{   
+    min-height: 44px;
+    margin-bottom: 0px;
+    }
+}

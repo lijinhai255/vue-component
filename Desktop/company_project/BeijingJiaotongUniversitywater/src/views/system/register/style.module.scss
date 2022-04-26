@@ -1,0 +1,292 @@
+.from_companyInfo{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap:0 50px;
+    grid-auto-rows: minmax(60px, auto);
+   
+    .management{
+        display: flex;
+        .check{
+            width: 300px;
+            margin: 0px 0px 0px 20px;
+        }
+    }
+    .datepicker{
+        width: 100%;
+    }
+    .resDatePicker{
+        width: 280px;
+    }
+    .ComDatePicker{
+        width: 48.5%;
+    }
+    .pickstyleComon{
+        width: 48.5%;
+        div{
+            width: 100%;
+        }
+    }
+    @media (max-width:1920px) {
+        .ComDatePicker{
+            width: 47.1%;
+        }
+        .pickstyleComon{
+            width: 47.1%;
+            div{
+                width: 100%;
+            }
+        }
+    }
+    .item{
+        margin:0px 0 0 10px;
+        width: 650px;
+    }
+    .pic{
+        display: flex;
+        align-items: flex-end;
+    }
+    .uploadimgpic{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .centericon{
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            display: none;
+            div{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                width: 100%;
+                height: 100%;
+            }
+        }
+      
+    } 
+     .uploadimgpic:hover .centericon{
+        display: block;
+    }
+    .picturecard{
+        width: 150px;
+        margin-right: 10px;
+        font-size: 12px;
+        div{
+            width: 150px;
+            margin: 0px;
+            color: #999999;
+        }
+        :global(.ant-upload-list-picture-card-container){
+            position: absolute;
+        }
+    }
+    .addressInput{
+        display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap:0 50px;
+    height: 34px;
+    }
+   .oneName{
+        grid-column-start: span 1;
+    margin-bottom: 20px;
+   }.twoName{ grid-column-start: span 2;
+    margin-bottom: 0px;
+   }.threeName{ grid-column-start: span 3;
+    margin-bottom: 20px;
+   }
+    // .oneRow3{
+    //     grid-area: a3;
+    // }
+    .labelTs{
+        // background: red;
+        :global(.ant-form-item-no-colon){
+            opacity: 0;
+        }
+    }
+    .spanText{
+        font-family: PingFangSC-Regular;
+font-weight: Regular;
+font-size: 12px;
+color: #999999;
+
+    }
+    :global(.ant-upload-list-picture-card-container){
+        width: 150px;
+    }
+    :global( .ant-upload-list-item){
+        padding: 0;
+    }
+    :global(.ant-upload-list-picture-card .ant-upload-list-item-thumbnail img){
+        object-fit: cover;
+    }
+}
+.formSubmit{
+    position: fixed;
+    bottom: 0px;
+    width: 100vw;
+    background: white;
+    left: 0;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.10);
+    margin: 0px;
+    div{
+        width: 985px;
+    margin: auto;
+    display: flex;
+    justify-content: flex-end;
+    }
+    button{
+        width: 80px;
+        height: 32px;
+        background: #09C199;
+        border: 1px solid rgba(0,0,0,0.06);
+        box-shadow: inset 0 -1px 0 0 rgba(0,0,0,0.06);
+        border-radius: 4px;
+    }
+}
+.listBtn{
+    position: fixed;
+    right: 0px;
+    height: 60px;
+    bottom: 0px;
+    margin: 0px !important;
+    background: white;
+    width: 100%;
+    div{
+        width: 96%;
+    margin: auto;
+    display: flex;
+    justify-content: flex-end;
+    }
+    button{
+        width: 80px;
+        height: 32px;
+        border: 1px solid rgba(0,0,0,0.06);
+        box-shadow: inset 0 -1px 0 0 rgba(0,0,0,0.06);
+        border-radius: 4px;
+    }
+}
+
+.from_companyInfoEdit{
+    // background-color: red;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 30px;
+    grid-template-areas: 
+    "a1 a2"
+    "a1 a2"
+    "a1 a2"
+    "a1 a2"
+    "a3 a3"
+    "a4 a4"
+    "a5 a5"
+    "a6 a6";
+    .oneRow3{
+        grid-area: a3;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+    }
+    .regAreaCode{
+        grid-area: a4;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .produceAreaCode{
+        grid-area: a5;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .upload{
+        grid-area: a6;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .labelTs{
+        // background: red;
+        :global(.ant-form-item-no-colon){
+            opacity: 0;
+        }
+        margin-left: 10px;
+    }
+    .spanText{
+        font-family: PingFangSC-Regular;
+font-weight: Regular;
+font-size: 12px;
+color: #999999;
+
+    }
+    :global(.ant-upload-list-picture-card-container){
+        width: 150px;
+    }
+    :global( .ant-upload-list-item){
+        padding: 0;
+    }
+    :global(.ant-upload-list-picture-card .ant-upload-list-item-thumbnail img){
+        object-fit: cover;
+    }
+}
+.h2Text{
+    font-family: PingFangSC-Semibold;
+    font-weight: Semibold;
+    font-size: 18px;
+    color: #333333;
+    margin-bottom: 30px;
+}
+.h3Text{
+    font-family: PingFangSC-Semibold;
+    font-weight: Semibold;
+    font-size: 14px;
+    color: #333333;
+    margin-bottom: 20px;
+}
+.button{
+    width: 280px;
+    background: #09C199;
+    border-radius: 4px;
+    font-family: PingFangSC-Medium;
+    font-weight: Medium;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+}
+.pText{
+    font-family: PingFangSC-Regular;
+    font-weight: Regular;
+    font-size: 14px;
+    color: #333333;
+    margin-bottom: 20px;
+}
+.spanGreen{
+    height: 20px;
+    font-family: PingFangSC-Regular;
+    font-weight: Regular;
+    font-size: 14px;
+    color: #09C199;
+    cursor: pointer;
+
+}
+.DraweBtn_fix{
+    position: fixed;
+    width: 100vw;
+   right: 0px;
+   height: 60px;
+   background: white;
+   bottom: 0px;   
+    display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   box-sizing: border-box;
+   padding-right: 14px;
+   box-shadow: 0 0 5px 0 rgba(0,0,0,0.10);
+}
