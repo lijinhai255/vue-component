@@ -2,51 +2,51 @@
  * @file 首页介绍
  */
 import style from './index.module.scss';
-import { Carousel } from 'antd';
-import { useEffect, useRef, useState } from 'react';
-import { IconFont } from '@/components/IconFont';
-import CompanyNumber from './component/CompanyNumber';
+// import { Carousel } from 'antd';
+// import { useEffect, useRef, useState } from 'react';
+// import { IconFont } from '@/components/IconFont';
+// import CompanyNumber from './component/CompanyNumber';
 import store from '@/store';
-import { apiDashboardData } from './service';
+// import { apiDashboardData } from './service';
 
 function Intro() {
   const { user } = store.getState();
-  const [CarouselWidth, changeCarouselWidth] = useState<number>(0);
-  const [DashboardData, getDashboardData] = useState<{
-    entOrgNum?: string;
-    entTodayAdd?: String;
-    projectTotal?: string;
-    reductionEffect?: string;
-  }>({});
-  const unitRef = useRef<HTMLDivElement>(null);
+  // const [CarouselWidth, changeCarouselWidth] = useState<number>(0);
+  // const [DashboardData, getDashboardData] = useState<{
+  //   entOrgNum?: string;
+  //   entTodayAdd?: String;
+  //   projectTotal?: string;
+  //   reductionEffect?: string;
+  // }>({});
+  // const unitRef = useRef<HTMLDivElement>(null);
   console.log(user.orgType, 'user-user');
-  useEffect(() => {
-    let current = unitRef?.current;
-    if (current) {
-      changeCarouselWidth(current.clientWidth);
-    }
-  }, [unitRef]);
-  const apiDashboardDataFn = async () => {
-    await apiDashboardData().then(({ data }) => {
-      console.log(data, 'data=data');
-      getDashboardData(data.data);
-    });
-  };
-  useEffect(() => {
-    apiDashboardDataFn();
-  }, []);
+  // useEffect(() => {
+  //   let current = unitRef?.current;
+  //   if (current) {
+  //     changeCarouselWidth(current.clientWidth);
+  //   }
+  // }, [unitRef]);
+  // const apiDashboardDataFn = async () => {
+  //   await apiDashboardData().then(({ data }) => {
+  //     console.log(data, 'data=data');
+  //     getDashboardData(data.data);
+  //   });
+  // };
+  // useEffect(() => {
+  //   apiDashboardDataFn();
+  // }, []);
   return (
     <div>
       <div className={style.header}>
         <h1 className={style.title}>
           欢迎来到
-          <span style={{ color: '#09C199', paddingLeft: '10px' }}>
-            企业碳减排账户管理系统
+          <span style={{ color: '#005BAC', paddingLeft: '10px' }}>
+            碳中和智能化管理平台
           </span>
         </h1>
         <span className={style.tip}>让项目减排量变的可视化</span>
       </div>
-      {Number(user.orgType) === 1 && (
+      {/* {Number(user.orgType) === 1 && (
         <>
           <div className={style.unit}>
             <div className={style.unit_item}>
@@ -170,7 +170,7 @@ function Intro() {
             </div>
           </div>
         </>
-      )}
+      )} */}
     </div>
   );
 }

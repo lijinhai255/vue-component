@@ -14,7 +14,7 @@ import {
   apiGetAllCompanys,
   CurrentType,
 } from '@views/base/service';
-import { apiMnumListALLByDictTypeBatch } from '@/views/emission/service';
+import { apiMnumListALLByDictTypeBatch } from '@/views/data-quality-management/service-old';
 import { SearchParams } from '../utils';
 import { industryObj } from '@/views/base/base-admin/utils/columns';
 import useSyncCallback from '@/utils/useSyncCallback';
@@ -150,6 +150,7 @@ const EmissionModel: FC<EmissionModelProps> = ({
       changeCurrentRow([]);
     };
   }, [selectKeys, currentLabel, visible]);
+  // console.log(setPageCount, setPageNum, 'setPageCount=setPageCount');
   const columns: ColumnsType<CurrentType> = [
     {
       title: '序号',

@@ -27,7 +27,7 @@ import style from '../index.module.scss';
 import { combineClassName, removeRepeat } from '@/utils';
 import { querystringToObject } from '@/utils';
 
-import { apiMnumListALLByDictTypeBatch } from '../../../emission/service';
+import { apiMnumListALLByDictTypeBatch } from '../../../data-quality-management/service-old';
 import {
   apiGoodsInfo,
   apiEditGoods,

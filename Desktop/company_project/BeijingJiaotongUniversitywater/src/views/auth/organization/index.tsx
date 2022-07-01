@@ -67,6 +67,7 @@ function Organization() {
     name: '碳云',
     key: '0',
     children: [],
+    order_num: 1,
   });
   // 新增后要默认打开指定tree
   const [openTree, setOpenTree] = useState<Array<string | number>>(['0-0']);

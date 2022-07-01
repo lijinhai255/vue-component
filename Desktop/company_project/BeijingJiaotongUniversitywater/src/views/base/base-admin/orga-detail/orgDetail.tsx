@@ -21,7 +21,7 @@ import {
   Tree,
   message,
 } from 'antd';
-import { apiMnumListALLByDictTypeBatch } from '../../../emission/service';
+import { apiMnumListALLByDictTypeBatch } from '../../../data-quality-management/service-old';
 
 import { Option } from 'antd/es/mentions';
 // import { UploadChangeParam } from 'antd/lib/upload';

@@ -13,6 +13,7 @@ export interface RouteBase {
   // 是否校验权限, false 为不校验, 不存在该属性或者为true 为校验, 子路由会继承父路由的 auth 属性
   auth?: boolean;
   title?: string | undefined;
+  show?: boolean;
 }
 
 export interface RouteMeta {
@@ -36,27 +37,21 @@ export interface Routes extends RouteBase {
  */
 export const menuRoutes: Routes[] = [
   {
-    path: '/dashborad',
+    path: '/dashborad/intro',
     meta: {
       title: '首页',
     },
-    redirect: '/dashborad/intro',
-    children: [
-      {
-        path: '/dashborad/intro',
-        component: lazy(() => import('../views/dashborad/intro')),
-        meta: {
-          title: '系统介绍',
-        },
-      },
-      {
-        path: '/auth/person',
-        component: lazy(() => import('../views/person/index')),
-        meta: {
-          title: '个人中心',
-        },
-      },
-    ],
+    component: lazy(() => import('../views/dashborad/intro')),
+    // children: [
+    //   {
+    //     path: '/dashborad/intro/userInfo',
+    //     component: lazy(() => import('../views/dashborad/intro/userInfo')),
+    //     show: true,
+    //     meta: {
+    //       title: '账户信息',
+    //     },
+    //   },
+    // ],
   },
 
   // 以下菜单为系统权限管理
@@ -128,9 +123,9 @@ export const menuRoutes: Routes[] = [
             ),
           },
           {
-            path: '/auth/org/examine',
+            path: '/auth/org/edit',
             meta: {
-              title: '组织审核',
+              title: '编辑组织',
             },
             component: lazy(() =>
               import('../views/base/base-admin/Show/index'),
@@ -175,293 +170,165 @@ export const menuRoutes: Routes[] = [
           },
         ],
       },
-      {
-        path: '/auth/route',
-        meta: {
-          title: '菜单权限',
-        },
-        component: lazy(() => import('../views/auth/routeAuth')),
-      },
-      {
-        path: '/auth/config',
-        meta: {
-          title: '参数配置',
-        },
-        component: lazy(() => import('../views/base/base-admin/index')),
-        children: [
-          {
-            path: '/auth/config/edit',
-            meta: {
-              title: '编辑参数配置',
-            },
-            component: lazy(() =>
-              import('../views/base/base-admin/Show/config-detail'),
-            ),
-          },
-          {
-            path: '/auth/config/detail',
-            meta: {
-              title: '参数配置详情',
-            },
-            component: lazy(() =>
-              import('../views/base/base-admin/Show/config-detail'),
-            ),
-          },
-          {
-            path: '/auth/config/metion-detail',
-            meta: {
-              title: '参数监测详情',
-            },
-            component: lazy(() =>
-              import('../views/base/base-admin/Show/config-detail'),
-            ),
-          },
-          {
-            path: '/auth/config/metion-edit',
-            meta: {
-              title: '参数监测编辑',
-            },
-            component: lazy(() =>
-              import('../views/base/base-admin/Show/config-detail'),
-            ),
-          },
-        ],
-      },
-      {
-        path: '/auth/history',
-        meta: {
-          title: '操作日志',
-        },
-        component: lazy(() => import('../views/auth/history')),
-      },
     ],
   },
   {
-    path: '/business-infor',
+    path: '/data-quality-management',
     meta: {
-      title: '企业信息管理',
+      title: '数据质量管理',
     },
     component: lazy(() => import('../views/base/base-admin/index')),
     children: [
       {
-        path: '/business-infor/detail',
-        component: lazy(() => import('@views/system/register/index')),
-        meta: {
-          title: '企业基本信息',
-        },
-      },
-      {
-        path: '/business-infor/list',
+        path: '/data-quality-management/production',
         component: lazy(() => import('../views/base/base-admin/index')),
         meta: {
-          title: '企业变更审核',
+          title: '生产系统管理',
         },
         children: [
           {
-            path: '/business-infor/list/exam',
-            component: lazy(() => import('../views/system/register')),
-            meta: {
-              title: '企业信息变更审核',
-            },
-          },
-          {
-            path: '/business-infor/list/detail',
-            component: lazy(() => import('@views/system/register/index')),
-            meta: {
-              title: '企业信息变更详情',
-            },
-          },
-        ],
-      },
-    ],
-  },
-  {
-    path: '/mession-reduction',
-    meta: {
-      title: '减排项目',
-    },
-    component: lazy(() => import('../views/base/base-admin/index')),
-    children: [
-      {
-        path: '/mession-reduction/info',
-        component: lazy(() => import('../views/base/base-admin/index')),
-        meta: {
-          title: '项目信息',
-        },
-        children: [
-          {
-            path: '/mession-reduction/info/add',
+            path: '/data-quality-management/production/add',
             component: lazy(() =>
-              import('../views/emission/library/Show/index'),
+              import('../views/data-quality-management/library/Show/index'),
             ),
             meta: {
-              title: '新增项目',
+              title: '新增生产系统',
             },
           },
           {
-            path: '/mession-reduction/info/detail',
+            path: '/data-quality-management/production/detail',
             component: lazy(() =>
-              import('../views/emission/library/Show/index'),
+              import('../views/data-quality-management/library/Show/index'),
             ),
             meta: {
-              title: '项目信息详情',
+              title: '生产系统详情',
             },
           },
           {
-            path: '/mession-reduction/exam/monitor-detail',
+            path: '/data-quality-management/production/edit',
             component: lazy(() =>
-              import('../views/emission/library/Show/index'),
+              import('../views/data-quality-management/library/Show/index'),
             ),
             meta: {
-              title: '监测项目详情',
-            },
-          },
-          {
-            path: '/mession-reduction/exam/exam-detail',
-            component: lazy(() =>
-              import('../views/emission/library/Show/index'),
-            ),
-            meta: {
-              title: '项目详情',
-            },
-          },
-          {
-            path: '/mession-reduction/info/edit',
-            component: lazy(() =>
-              import('../views/emission/library/Show/index'),
-            ),
-            meta: {
-              title: '编辑项目信息',
+              title: '编辑生产系统',
             },
           },
         ],
       },
       {
-        path: '/mession-reduction/exam',
+        path: '/data-quality-management/standard',
         component: lazy(() => import('../views/base/base-admin/index')),
         meta: {
-          title: '项目审核',
+          title: '行业标准',
         },
         children: [
           {
-            path: '/mession-reduction/exam/examine-info',
+            path: '/data-quality-management/standard/add',
             component: lazy(() =>
-              import('../views/emission/library/Show/index'),
+              import('../views/data-quality-management/standard/index'),
             ),
             meta: {
-              title: '审核项目数据',
+              title: '新增标准',
             },
           },
           {
-            path: '/mession-reduction/exam/mession-monitor',
+            path: '/data-quality-management/standard/edit',
             component: lazy(() =>
-              import('../views/emission/library/Show/index'),
+              import('../views/data-quality-management/standard/index'),
             ),
             meta: {
-              title: '监测项目审核',
+              title: '编辑标准',
             },
           },
           {
-            path: '/mession-reduction/exam/detail',
+            path: '/data-quality-management/standard/detail',
             component: lazy(() =>
-              import('../views/emission/library/Show/index'),
+              import('../views/data-quality-management/standard/index'),
             ),
             meta: {
-              title: '项目数据详情',
+              title: '标准详情',
             },
           },
         ],
       },
       {
-        path: '/mession-reduction/query',
-        component: lazy(() => import('../views/base/base-admin/index')),
+        path: '/data-quality-management/control',
+        component: lazy(() =>
+          import('../views/data-quality-management/control/index'),
+        ),
         meta: {
-          title: '项目查询',
+          title: '数据质量控制',
         },
         children: [
           {
-            path: '/mession-reduction/query/after-report',
+            path: '/data-quality-management/control/productionProcess',
+            component: lazy(() =>
+              import('../views/data-quality-management/control/base'),
+            ),
+            meta: {
+              title: '生产工艺',
+            },
+            children: [
+              {
+                path: '/data-quality-management/control/process/add',
+                component: lazy(() =>
+                  import('../views/data-quality-management/control/process'),
+                ),
+                meta: {
+                  title: '新增生产工艺',
+                },
+              },
+              {
+                path: '/data-quality-management/control/process/edit',
+                component: lazy(() =>
+                  import('../views/data-quality-management/control/process'),
+                ),
+                meta: {
+                  title: '编辑生产工艺',
+                },
+              },
+              {
+                path: '/data-quality-management/control/process/detail',
+                component: lazy(() =>
+                  import('../views/data-quality-management/control/process'),
+                ),
+                meta: {
+                  title: '生产工艺详情',
+                },
+              },
+            ],
+          },
+          {
+            path: '/data-quality-management/control/account',
             component: lazy(() => import('../views/base/base-admin/index')),
             meta: {
-              title: '事后预估报告',
+              title: '核算边界',
+            },
+          },
+          {
+            path: '/data-quality-management/control/facilityDischarge',
+            component: lazy(() => import('../views/base/base-admin/index')),
+            meta: {
+              title: '设施排放',
+            },
+          },
+          {
+            path: '/data-quality-management/control/discharge',
+            component: lazy(() => import('../views/base/base-admin/index')),
+            meta: {
+              title: '数据确认方式',
+            },
+          },
+          {
+            path: '/data-quality-management/control/discharge',
+            component: lazy(() => import('../views/base/base-admin/index')),
+            meta: {
+              title: '质量管理规定',
             },
           },
         ],
       },
-      {
-        path: '/mession-reduction/assessment',
-        component: lazy(() => import('../views/base/base-admin/index')),
-        meta: {
-          title: '评估报告',
-        },
-      },
-      {
-        path: '/mession-reduction/disclosure',
-        component: lazy(() => import('../views/base/base-admin/index')),
-        meta: {
-          title: '披露报告',
-        },
-      },
     ],
-  },
-  {
-    path: '/mession-monitor',
-    meta: {
-      title: '碳减排监测',
-    },
-    component: lazy(() => import('../views/base/base-admin/index')),
-    children: [
-      {
-        path: '/mession-monitor/info',
-        component: lazy(() => import('../views/base/base-admin/index')),
-        meta: {
-          title: '监测数据',
-        },
-        children: [
-          {
-            path: '/mession-monitor/info/add',
-            component: lazy(() =>
-              import('../views/emission/library/Show/index'),
-            ),
-            meta: {
-              title: '新建监测数据',
-            },
-          },
-          {
-            path: '/mession-monitor/info/detail',
-            component: lazy(() =>
-              import('../views/emission/library/Show/index'),
-            ),
-            meta: {
-              title: '监测数据详情',
-            },
-          },
-          {
-            path: '/mession-monitor/info/edit',
-            component: lazy(() =>
-              import('../views/emission/library/Show/index'),
-            ),
-            meta: {
-              title: '监测数据编辑',
-            },
-          },
-        ],
-      },
-      {
-        path: '/mession-monitor/exam',
-        component: lazy(() => import('../views/base/base-admin/index')),
-        meta: {
-          title: '监测报告',
-        },
-      },
-    ],
-  },
-  {
-    path: '/preview',
-    meta: {
-      title: '预览',
-    },
-    component: lazy(() => import('../views/preview')),
   },
 ];
 
@@ -479,7 +346,7 @@ const routes: Routes[] = [
         path: '/system/login',
         component: lazy(() => import('../views/system/login')),
         meta: {
-          title: '企业碳减排账户管理系统',
+          title: '碳中和智能化管理平台',
         },
       },
       {
@@ -525,61 +392,20 @@ const routes: Routes[] = [
     children: [
       ...menuRoutes,
       {
-        path: '/auth/role/addRole',
-        meta: {
-          title: '新增角色',
-        },
-        component: lazy(() => import('../views/auth/role/AddOrEdit')),
-      },
-      {
-        path: '/auth/role/editRole',
-        meta: {
-          title: '编辑角色',
-        },
-        component: lazy(() => import('../views/auth/role/AddOrEdit')),
-      },
-      {
-        path: '/auth/role/roleDetail/:id?',
-        meta: {
-          title: '详情',
-        },
-        component: lazy(() => import('../views/auth/role/detail')),
-      },
-      {
-        path: '/auth/user/addUser',
-        meta: {
-          title: '新增账号',
-        },
-        component: lazy(() => import('../views/auth/user/AddOrEdit')),
-      },
-      {
-        path: '/auth/user/editUser',
-        meta: {
-          title: '编辑账号',
-        },
-        component: lazy(() => import('../views/auth/user/AddOrEdit')),
-      },
-      {
-        path: '/auth/user/checkUser',
-        meta: {
-          title: '查看账号',
-        },
-        component: lazy(() => import('../views/auth/user/AddOrEdit')),
-      },
-      {
-        path: '/basic-datas/dict/:id?',
-        component: lazy(() => import('@views/Dict/Show')),
-        meta: {
-          title: '详情',
-        },
-      },
-      {
         path: '/industry/emission-source-dicts/emission-source/:id?',
         component: lazy(() =>
           import('@views/industry/EmissionSourceDict/EmissionSource'),
         ),
         meta: {
           title: '新增排放源',
+        },
+      },
+      {
+        path: '/dashborad/intro/userInfo',
+        component: lazy(() => import('../views/system/userInfo')),
+        show: true,
+        meta: {
+          title: '账户信息',
         },
       },
       {

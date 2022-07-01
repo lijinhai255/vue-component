@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Modal, Table, message } from 'antd';
 import { apiReportProjectDataList, apiReportGenerate } from '../../service';
+
 interface ReportModalProps {
   monitoringReportVisible: boolean;
   changeMonitoringReportVisible: (type: boolean) => void;
@@ -61,7 +62,7 @@ const ReportModal: FC<ReportModalProps> = ({
   }, [monitoringReportVisible]);
   return (
     <Modal
-      title={`生成监测报告`}
+      title='生成监测报告'
       visible={monitoringReportVisible}
       onCancel={() => {
         changeMonitoringReportVisible(false);
@@ -73,7 +74,7 @@ const ReportModal: FC<ReportModalProps> = ({
       }}
       okButtonProps={{
         loading: modalOkLoading,
-        disabled: disabled,
+        disabled,
       }}
     >
       <Table
@@ -93,14 +94,16 @@ const ReportModal: FC<ReportModalProps> = ({
         ]}
         rowSelection={{
           onChange: dataIdList => {
-            let arrSort = dataIdList.sort((a, b) => Number(a) - Number(b));
-            let indexArr: number[] = [];
-            let selectArr: string[] = [];
+            const arrSort = dataIdList.sort((a, b) => Number(a) - Number(b));
+            const indexArr: number[] = [];
+            const selectArr: string[] = [];
             changeSelectedRowKeys([]);
             arrSort.forEach(it => {
-              let index = projectDataList.findIndex((item: { id: string }) => {
-                return item.id === it;
-              });
+              const index = projectDataList.findIndex(
+                (item: { id: string }) => {
+                  return item.id === it;
+                },
+              );
               indexArr.push(index);
             });
             indexArr.sort((a: number, b: number) => Number(a) - Number(b));

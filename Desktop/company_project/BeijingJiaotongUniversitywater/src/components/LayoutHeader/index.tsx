@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import classnames from 'classnames';
 import { IStoreState } from '../../store/types';
 import LayoutNavBar from '../LayoutNavBar';
-import { LayoutSideBar } from '../LayoutSideBar';
+// import { LayoutSideBar } from '../LayoutSideBar';
 import './index.less';
 
 export const LayoutHeader = () => {
@@ -30,11 +30,12 @@ export const LayoutHeader = () => {
           [`layout__header__inner--${contentWidth}`]: layout === 'top',
         })}
       >
-        {layout === 'top' && (
+        <h1 className='layout__header__title'>水务系统碳中和智能化管理平台</h1>
+        {/* {layout === 'top' && (
           <div className='layout__header--top-side-bar'>
             <LayoutSideBar />
           </div>
-        )}
+        )} */}
         <LayoutNavBar />
       </div>
 

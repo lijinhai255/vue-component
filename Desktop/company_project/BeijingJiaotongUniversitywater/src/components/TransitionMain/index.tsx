@@ -4,8 +4,8 @@ import { ReactNode, memo } from 'react';
 import { connect } from 'react-redux';
 
 import { IconFont } from '@components/IconFont';
-import { IStoreState } from '@/store/types';
 import { setTrans, TransAssistantState } from '@store/module/transAssistant';
+import { IStoreState } from '@/store/types';
 
 interface TransitionMainProps {
   children: ReactNode;
@@ -100,7 +100,7 @@ function TransitionMain({ children, isShow, setTransFn }: TransitionMainProps) {
             classNames='layout__route'
             timeout={0}
           > */}
-            <Switch location={location}>{children}</Switch>
+            <Switch location={location}>{children as any}</Switch>
             {/* </CSSTransition> */}
           </TransitionGroup>
           {isShow && (

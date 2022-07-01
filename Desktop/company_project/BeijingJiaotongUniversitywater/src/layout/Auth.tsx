@@ -64,6 +64,7 @@ function Auth(props: AuthProps) {
     return <Redirect to={props.route.redirect} push />;
   }
 
+  // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{props.children}</>;
 }
 

@@ -1,10 +1,8 @@
 /**
  * @file 注册接口
  */
-/* eslint-disable */
 import { request } from '../../../api/request';
 import { apiSystemOrgDetailJSON } from './interfaceJson';
-/* eslint-enable */
 
 export interface CreateUserData {
   account: string;
@@ -39,7 +37,7 @@ export function apiAddress() {
     url: '/system/lib/address/tree',
   });
 }
-//地址库查询
+// 地址库查询
 export function apiAddressCode(params: { addressCode: string }) {
   return request<{
     code: number;
@@ -55,7 +53,7 @@ export function apiAddressCode(params: { addressCode: string }) {
     params,
   });
 }
-//注册企业-新增
+// 注册企业-新增
 export interface EnterpriseCreate {
   businessLicense?: string;
   contactEmail?: string;
@@ -101,7 +99,7 @@ export function apiSystemOrgDetail(params: SystemOrgDetailType) {
     params,
   });
 }
-//注册企业-编辑
+// 注册企业-编辑
 export function apiEnterpriseRegEdit(data: EnterpriseCreate) {
   return request<{
     code: number;
@@ -140,7 +138,7 @@ interface EnterpriseAudiType {
 export function apiEnterpriseAudit(data: EnterpriseAudiType) {
   return request<{
     code: number;
-    data: {};
+    data: any;
     msg: string;
   }>({
     method: 'POST',
@@ -151,7 +149,7 @@ export function apiEnterpriseAudit(data: EnterpriseAudiType) {
 export function apiorgAudit(data: EnterpriseAudiType) {
   return request<{
     code: number;
-    data: {};
+    data: any;
     msg: string;
   }>({
     method: 'POST',
@@ -162,7 +160,7 @@ export function apiorgAudit(data: EnterpriseAudiType) {
 export function apiEnterpriseEdit(data: EnterpriseCreate) {
   return request<{
     code: number;
-    data: {};
+    data: any;
     msg: string;
   }>({
     method: 'POST',

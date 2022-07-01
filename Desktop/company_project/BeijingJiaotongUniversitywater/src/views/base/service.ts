@@ -115,6 +115,9 @@ interface ApiGetRoleInfoType {
 interface ApiGetRoleInfoTypeRole {
   id: string;
 }
+interface ApiGetRolePageType {
+  search?: string;
+}
 // 组织详情 包含订购的产品信息
 
 export function apiGetCompanyInfo(params: { companyId: string }) {
@@ -124,7 +127,7 @@ export function apiGetCompanyInfo(params: { companyId: string }) {
     page: number;
     pageSize: number;
     data: {
-      company: {};
+      company: any;
       companyProducts: [];
     };
   }>({
@@ -133,7 +136,20 @@ export function apiGetCompanyInfo(params: { companyId: string }) {
     params,
   });
 }
-
+/** 角色列表 */
+export function apiGetRolePage(params: ApiGetRolePageType & ListPageType) {
+  return request<{
+    code: number;
+    msg: string;
+    data: {
+      results: [];
+    };
+  }>({
+    method: 'get',
+    url: '/organization/role/',
+    params,
+  });
+}
 export function apiGetRoleInfo(
   params: ApiGetRoleInfoType | ApiGetRoleInfoTypeRole,
 ) {
@@ -236,6 +252,7 @@ export function apiGetAllPermissions() {
     url: '/system/saas/getAllPermissions',
   });
 }
+
 // 新增权限点
 interface AddPermissionType {
   parentId: number;
@@ -279,7 +296,7 @@ export function editAddPermission(data: AddPermissionType & { id: number }) {
 }
 // 删除
 export function apiDeleteTreeById(data: { permissionId: number }) {
-  let newData = new FormData();
+  const newData = new FormData();
   newData.append('permissionId', `${data.permissionId}`);
   return request<{
     code: number;
@@ -552,6 +569,11 @@ export function apiEditGuide(data: NavForm) {
     data,
   });
 }
+interface UserPageType {
+  likeOrgName?: string;
+  mobile?: string;
+  userStatus?: string;
+}
 export function apiProjectAuditPage(params: UserPageType & EnterPricePageType) {
   return request<{
     code: number;
@@ -592,7 +614,7 @@ export function apiDeleteProjectInfo(data: { id: number }) {
     data,
   });
 }
-//项目报送人行
+// 项目报送人行
 export function apiDeleteProjectCcpbc(data: { id: number }) {
   return request<{
     code: number;
@@ -1041,52 +1063,77 @@ export function apiEditOrder(
   });
 }
 
-//分页查询企业变更审核
+// 分页查询企业变更审核
 interface EnterPricePageType {
   pageNo?: number;
   pageSize?: number;
 }
-export function apiEnterprisePage(
-  params: { likeOrgName?: string } & EnterPricePageType,
-) {
-  return request<{
-    code: number;
-    msg: string;
-    data: {
-      total: number;
-      list: [];
-    };
-  }>({
-    method: 'GET',
-    url: '/system/enterprise/audit/page',
-    params,
-  });
+interface ListPageType {
+  page: number;
+  page_size: number;
 }
+
 // 组织管理
-interface SystemOrgPageType {
-  contactMobile?: string;
-  startDate?: string;
-  endDate?: string;
-  likeOrgName?: string;
-  orgStatus?: string;
-  orgType?: string;
+interface OrganizationPageType {
+  ordering?: string;
+  search?: string;
 }
-export function apiSystemOrgPage(
-  params: SystemOrgPageType & EnterPricePageType,
+export function apiOrganizationPage(
+  params: OrganizationPageType & ListPageType,
 ) {
   return request<{
     code: number;
     msg: string;
     data: {
-      total: number;
-      list: [];
+      count: number;
+      results: [];
     };
   }>({
-    method: 'GET',
-    url: '/system/org/page',
+    method: 'get',
+    url: '/organization/organization_info/',
     params,
   });
 }
+// 新增组织
+interface OrgAddType {
+  name?: string | number | undefined;
+  abbreviation: string | number;
+  org_code: string;
+  parent_id: string | number;
+}
+export function apiOrgAdd(data: OrgAddType) {
+  return request<{
+    code: number;
+    msg: string;
+    data: any;
+    status: string;
+  }>({
+    method: 'post',
+    url: '/organization/organization_info/',
+    data,
+  });
+}
+// 编辑组织
+export function apiOrgEdit(data: OrgAddType & { id?: number | string }) {
+  return request<{
+    code: number;
+    msg: string;
+    data: any;
+    status: string;
+  }>({
+    method: 'put',
+    url: `/organization/organization_info/${data.id}/`,
+    data,
+  });
+}
+// 获取组织详情
+export const apiOrgDetail = (params: { id: string }) => {
+  return request({
+    url: `/organization/organization_info/${params.id}/`,
+    params,
+    method: 'GET',
+  });
+};
 // /system/org/tree
 interface OrgTreeType {
   likeOrgName?: string;
@@ -1122,7 +1169,7 @@ export function apiOrgTreeCheck(params: OrgTreeType) {
     params,
   });
 }
-///system/org/create
+// /system/org/create
 interface OrgCreateType {
   bankOrgId?: string;
 }
@@ -1141,29 +1188,115 @@ export function apiOrgCreate(data: OrgCreateType) {
     data,
   });
 }
-///system/user/page
+// /system/user/page
 // 用户 分页查询
-interface UserPageType {
-  likeOrgName?: string;
-  mobile?: string;
-  userStatus?: string;
+interface AccountPageType {
+  is_active?: boolean | string | undefined | number;
+  organization_id?: number | undefined;
+  ordering?: string;
+  search?: string;
 }
-export function apiUserPage(params: UserPageType & EnterPricePageType) {
+export function apiAccountPage(params: AccountPageType & ListPageType) {
   return request<{
     code: number;
     msg: string;
     data: {
-      total: number;
-      list: [];
+      results: [];
+      count: number;
     };
+    status: string;
   }>({
-    method: 'get',
-    url: '/system/user/page',
+    method: 'GET',
+    // url: `/organization/account/${params.search}`,
+    url: `/organization/account/`,
+    params,
+  });
+}
+// 新增用户
+interface AccountAddType {
+  username?: string | number | undefined;
+  organization_id: string | number;
+  role: [];
+  nick_name: string;
+  phone: string | number;
+}
+export function apiUserAdd(data: AccountAddType) {
+  return request<{
+    code: number;
+    msg: string;
+    data: any;
+    status: string;
+  }>({
+    method: 'post',
+    url: '/organization/account/',
+    data,
+  });
+}
+// 编辑用户
+export function apiUserEdit(data: AccountAddType & { id?: number | string }) {
+  return request<{
+    code: number;
+    msg: string;
+    data: any;
+    status: string;
+  }>({
+    method: 'put',
+    url: `/organization/account/${data.id}/`,
+    data,
+  });
+}
+// 获取用户详情
+export const apiUserDetail = (params: { id: string }) => {
+  return request({
+    url: `/organization/account/${params.id}/`,
+    params,
+    method: 'GET',
+  });
+};
+// 重置密码
+export function apiResetPwd(data: { username: string }) {
+  return request<{
+    code: number;
+    msg: string;
+    data: any;
+    status: string;
+  }>({
+    method: 'post',
+    url: '/organization/account/reset_password/',
+    data,
+  });
+}
+export function apiUserActive(data: { id: number; is_active: boolean }) {
+  return request<{
+    code: number;
+    msg: string;
+    data: any;
+    status: string;
+  }>({
+    method: 'post',
+    url: `/organization/account/${data.id}/disable_active/`,
+    data,
+  });
+}
+
+export function apiRolePage(params: { search?: string } & ListPageType) {
+  return request<{
+    code: number;
+    msg: string;
+    data: {
+      results: [];
+      count: number;
+    };
+    status: string;
+  }>({
+    method: 'GET',
+    // url: `/organization/account/${params.search}`,
+    url: `/organization/role/`,
     params,
   });
 }
 // /reduction/project/info/page
-//分页查询项目信息
+// 分页查询项目信息
 interface ProjectInfoPageType {
   likeProjectName?: string;
 }
@@ -1201,7 +1334,7 @@ export function apiUserStatus(data: UserStatusType) {
     data,
   });
 }
-//reduction/project/audit/cc
+// reduction/project/audit/cc
 // 项目抄送
 export function apiAuditCc(data: { id: number; orgIdList: string[] }) {
   return request<{
@@ -1217,7 +1350,7 @@ export function apiAuditCc(data: { id: number; orgIdList: string[] }) {
     data,
   });
 }
-//项目抄送核查机构
+// 项目抄送核查机构
 export function apiAuditCcheck(data: { id: number; orgIdList: string[] }) {
   return request<{
     code: number;
@@ -1287,7 +1420,7 @@ export function apiProjectDataList(
     params,
   });
 }
-//參數配置详情
+// 參數配置详情
 export function apiConfigDataInfo(params: { id: string; type: string }) {
   return request<{
     code: number;
@@ -1299,7 +1432,7 @@ export function apiConfigDataInfo(params: { id: string; type: string }) {
     params,
   });
 }
-///system/projectParam/configData
+// /system/projectParam/configData
 export function apiConfigData(data: {
   type: string;
   reductionParamProject: {
@@ -1333,8 +1466,8 @@ export function apiRoleDelete(data: { id: number }) {
     msg: string;
     data: [];
   }>({
-    method: 'POST',
-    url: '/system/role/delete',
+    method: 'delete',
+    url: `/organization/role/${data.id}/`,
     data,
   });
 }
@@ -1436,6 +1569,74 @@ export function apiSystemFilePreviewBase64(params: {
   }>({
     method: 'get',
     url: '/file/system/file/base64',
+    params,
+  });
+}
+interface ProductionSysManageType {
+  sys_type?: number;
+  create_org_id?: number;
+}
+// 生产系统管理列表
+export function apiProductionSysManageList(
+  params: ProductionSysManageType & ListPageType,
+) {
+  return request<{
+    code: number;
+    msg: string;
+    data: {
+      count: number;
+      results: [];
+    };
+  }>({
+    method: 'GET',
+    url: '/data_quality_manage/production_sys_manage/',
+    params,
+  });
+}
+// 删除生产设备
+export function apiProductionDelete(data: { id: string | number }) {
+  return request<{
+    code: number;
+    msg: string;
+    status: string;
+    data: [];
+  }>({
+    method: 'delete',
+    url: `data_quality_manage/production_sys_manage/${data.id}/`,
+    data,
+  });
+}
+interface StandardType {
+  level?: number | string;
+  classify?: number | string;
+  status?: number | string;
+  search?: number | string;
+}
+// 行业标准列表
+export function apiStandardList(params: StandardType & ListPageType) {
+  return request<{
+    code: number;
+    msg: string;
+    data: {
+      count: number;
+      results: [];
+    };
+  }>({
+    method: 'GET',
+    url: '/data_quality_manage/industry_standard/',
+    params,
+  });
+}
+// 删除行业标准详情
+export function apiStandardDelete(params: { id: string | number }) {
+  return request<{
+    code: number;
+    msg: string;
+    status: string;
+    data: any;
+  }>({
+    method: 'delete',
+    url: `data_quality_manage/industry_standard/${params.id}/`,
     params,
   });
 }

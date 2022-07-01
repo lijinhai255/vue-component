@@ -3,7 +3,7 @@
  */
 import { useState } from 'react';
 // import { GithubOutlined, ZhihuOutlined } from '@ant-design/icons';
-import { Row, Col } from 'antd';
+// import { Row, Col } from 'antd';
 import './index.less';
 // import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -24,13 +24,23 @@ function Login() {
   const [activeTab, setActiveTab] = useState('account');
 
   return (
-    <div>
-      <div className='logintext'>企业碳减排账户管理系统</div>
-      <Row className='login_content'>
-        <Col span={6}>
+    <div className='login_bg'>
+      <div className='login_layout'>
+        <div className='longin_logo'>
+          <h2>水务系统</h2>
+          <h2>碳中和智能化管理平台</h2>
+        </div>
+        <div className='login_body'>
+          <p>欢迎登录</p>
           <IphoneScreen />
-        </Col>
-      </Row>
+        </div>
+        {/* <div className='logintext'>碳中和智能化管理平台</div> */}
+        {/* <Row className='login_content'>
+          <Col span={6}>
+            <IphoneScreen />
+          </Col>
+        </Row> */}
+      </div>
     </div>
   );
 }

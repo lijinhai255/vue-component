@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { memo, useEffect, useState } from 'react';
-import { Form, Input, Tree, Row, Col, Button, Select } from 'antd';
+import { Form, Input, Tree, Row, Col, Button } from 'antd';
 import { useHistory } from 'react-router-dom';
-import {
-  // apiGetRoleTreeList,
-  apiGetAllPermissions,
-  apiRoleAdd,
-  apiRoleEdit,
-  apiRoleQuery,
-} from '@/api/api';
+// import {
+//   // apiGetRoleTreeList,
+//   // apiGetAllPermissions
+//   apiRoleQuery,
+// } from '@/api/api';
 import { TreeAddForm } from '../routeAuth/service';
+import { apiGetMenus, apiRoleAdd, apiRoleEdit, apiRoleDetail } from './service';
 import VerifyUtils from '@/utils/verifty';
 
 function AddOrEditRole() {
@@ -22,19 +21,20 @@ function AddOrEditRole() {
   const [halfCheck, setHalf] = useState<any[]>([]);
   const [currentId, changeCurrentId] = useState<number>(1);
   const onCheck = (info: any, e: any): void => {
+    console.log(info, 'info=info', e, 'e=e=e');
     console.log(info, e.halfCheckedKeys);
     setCheckedKeys(info);
     setCheckedHaleKeys([...e.halfCheckedKeys]);
     form.setFieldsValue({
       ...form.getFieldsValue(),
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      keys: info || [],
+      menus: info || [],
     });
-    const arr: number[] = [];
-    e.halfCheckedKeys.forEach((item: any) => {
-      if (item !== '0-0') arr.push(item);
-    });
-    setHalf(arr);
+    // const arr: number[] = [];
+    // e.halfCheckedKeys.forEach((item: any) => {
+    //   if (item !== '0-0') arr.push(item);
+    // });
+    setHalf([...info]);
   };
   const culDisAble = () => {
     return ['detail'].some(
@@ -45,7 +45,7 @@ function AddOrEditRole() {
   const sortTreeByOrder = (arr: Array<TreeAddForm>) => {
     if (arr.length > 0) {
       arr.sort((obj1: TreeAddForm, obj2: TreeAddForm) => {
-        const val = obj1.orderNum - obj2.orderNum;
+        const val = obj1.order_num - obj2.order_num;
         return val;
       });
     }
@@ -54,15 +54,21 @@ function AddOrEditRole() {
     return treeData
       .filter(item => {
         const backF = item;
-        if (!backF.parentId) {
-          backF.parentId = 0;
+        if (!backF.parent) {
+          backF.parent = 0;
         }
-        return !key ? backF.parentId === 0 : backF.parentId === key;
+        return !key ? backF.parent === 0 : backF.parent === key;
       })
       .map(item => {
-        const back = { ...item, name: item.permissionName, key: item.id };
+        const back = {
+          ...item,
+          // name: item.permissionName,
+          key: item.id,
+          title: item.name,
+          id: item.id,
+        };
         // @ts-ignore
-        back.children = formatToTree(treeData, item.key);
+        back.children = formatToTree(treeData, item.id);
         sortTreeByOrder(back.children);
         return back;
       });
@@ -70,9 +76,9 @@ function AddOrEditRole() {
   const initTreeStructure = (treeData: TreeAddForm[]) => {
     return formatToTree(treeData);
   };
-  console.log(initTreeStructure, 'initTreeStructure');
+  // console.log(initTreeStructure, 'initTreeStructure');
   const getApiGetTreeList = () => {
-    apiGetAllPermissions({ orgType: currentId }).then((res: any) => {
+    apiGetMenus().then((res: any) => {
       const auth: TreeAddForm = {
         id: 0,
         menuId: 0,
@@ -85,16 +91,19 @@ function AddOrEditRole() {
         visible: 'false',
         title: '权限',
         kind: 0,
+        parent: 0,
         ident: '1',
         orderNum: 1,
+        order_num: 1,
         status: 'true',
         name: '权限',
         key: '0-0',
         children: [],
       };
+      // console.log(res.data.data.results, 'res');
       // @ts-ignore
-      auth.children = initTreeStructure(res.data.data);
-      console.log(auth, 'auth=auth');
+      auth.children = initTreeStructure(res.data.data.results);
+      // console.log(auth, 'auth=auth');
       // @ts-ignore
       sortTreeByOrder(auth.children);
       // 将每条数据加上0-0-x..的关系
@@ -107,18 +116,25 @@ function AddOrEditRole() {
     getApiGetTreeList();
   }, [currentId]);
   // 获取角色详情
-  const apiRoleQueryFn = async () => {
+  const getApiRoleDetail = async () => {
     const id = new URLSearchParams(location.search).get('id') || '';
-    await apiRoleQuery({ id }).then(({ data }) => {
-      try {
-        setCheckedKeys([...data.data.keys]);
-        setHalf([...data.data.mainKeys]);
+    await apiRoleDetail({ id }).then(res => {
+      console.log(res.data, 'data');
+      if (res.data.code === 200) {
         form.setFieldsValue({
-          ...data.data.role,
-          keys: [...data.data.keys],
+          ...res.data.data,
+          menus: [...res.data.data.menus],
         });
-        changeCurrentId(data.data.role.orgType);
-      } catch (error) {}
+      } else {
+        VerifyUtils.Toast('info', res.data.msg);
+      }
+      setCheckedKeys([...res.data.data.menus]);
+      setHalf([...res.data.data.menus]);
+      // form.setFieldsValue({
+      //   ...res.data.data,
+      //   menus: [...res.data.data.menus],
+      // });
+      // changeCurrentId(res.data.data.role.orgType);
     });
   };
   useEffect(() => {
@@ -129,7 +145,7 @@ function AddOrEditRole() {
       });
       changeCurrentId(1);
     } else {
-      apiRoleQueryFn();
+      getApiRoleDetail();
     }
   }, []);
   return (
@@ -138,37 +154,37 @@ function AddOrEditRole() {
         <Col span={12}>
           <Form
             form={form}
-            layout={'vertical'}
+            layout='vertical'
             // validateTrigger='onChange'
             onFinishFailed={e => console.log(e)}
             onFinish={(e: any) => {
               // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
               // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
               // e.keys = e.keys.shift();
-              e.keys.forEach((element: number | string, index: number) => {
-                if (element === '0-0') e.keys.splice(index, 1);
+              e.menus.forEach((element: number | string, index: number) => {
+                if (element === '0-0') e.menus.splice(index, 1);
               });
               if (window.location.search.split('?id=').length > 1) {
                 apiRoleEdit({
                   ...e,
                   id: window.location.search.split('?id=')[1],
-                  mainKeys: halfCheck,
+                  menus: halfCheck,
                 }).then((res: any) => {
-                  if (res.data.code === 500)
-                    VerifyUtils.Toast('info', res.data.msg);
                   if (res.data.code === 200) {
                     history.push('/auth/role');
                     VerifyUtils.Toast('success', '修改成功');
+                  } else {
+                    VerifyUtils.Toast('info', res.data.msg);
                   }
                 });
               } else {
                 console.log(e);
-                apiRoleAdd({ ...e, mainKeys: halfCheck }).then((res: any) => {
-                  if (res.data.code === 500)
-                    VerifyUtils.Toast('info', res.data.msg);
+                apiRoleAdd({ ...e, menus: halfCheck }).then((res: any) => {
                   if (res.data.code === 200) {
                     history.push('/auth/role');
                     VerifyUtils.Toast('success', '新增成功');
+                  } else {
+                    VerifyUtils.Toast('info', res.data.msg);
                   }
                 });
               }
@@ -183,14 +199,14 @@ function AddOrEditRole() {
                   message: '不能超过50个字符',
                 },
               ]}
-              name='roleName'
+              name='name'
               label='角色名称'
             >
               <Input disabled={culDisAble()} placeholder='请输入' />
             </Form.Item>
             <Form.Item
               rules={[{ required: true, message: '角色描述不能为空' }]}
-              name='roleInfo'
+              name='description'
               label='角色描述'
             >
               <Input.TextArea
@@ -201,7 +217,7 @@ function AddOrEditRole() {
                 rows={4}
               />
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
               rules={[{ required: true, message: '所属组织类型不能为空' }]}
               name='orgType'
               label='所属组织类型'
@@ -223,11 +239,11 @@ function AddOrEditRole() {
                 <Select.Option value={4}>核查机构</Select.Option>
                 <Select.Option value={5}>贷款企业</Select.Option>
               </Select>
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
               rules={[{ required: true, message: '权限不能为空' }]}
-              name='keys'
-              label='权限'
+              name='menus'
+              label='权限列表'
             >
               {menuDate?.length ? (
                 <Tree

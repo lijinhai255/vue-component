@@ -1,116 +1,17 @@
-.layout_search{
-    .searchbtn{
-        // width: 74px;
-        height: 32px;
-        background: #F6F6F6;
-        border-radius: 4px;
-        font-family: PingFangSC-Regular;
-        font-weight: 400;
-        font-size: 14px;
-        color: #333333;
-        border: none;
-        justify-content: center;
-        align-items: center;
-        .icon{
-            color: #999999;
-            font-size: 16px;
-            position: relative;
-            top: 1px;
-        }
+.formWrapper {
+    // 这里关联多处的样式，不要修改，必要时请用其它类名进行覆盖
+    flex: 1 0;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  
+    :global(.ant-form-item) {
+      margin-right: 19px;
+      margin-bottom: 16px;
     }
-    .seachlist{
-        margin-bottom: 20px;
-        margin-right: 20px;
+  
+    .buttonGroup {
+      flex: 0 0 auto;
+      display: flex;
+      flex-wrap: nowrap;
     }
-    .seachlistbtn{
-        margin-right: 10px;
-        height: 32px;
-        button{
-            // span{
-            //     margin-left: 3px;
-            // }
-        }
-    }
-    .searchipt{
-        width: 250px;
-    }
-}
-.usertable{
-    :global{
-        // 表格主体部分单元格的样式
-        .ant-table-tbody>tr>td{
-            height: 50px;
-            padding: 0px 20px;
-            border-bottom: 1px solid #F1F1F1;
-        }
-        // 表格表头部分单元格的样式
-        .ant-table-thead > tr > th{
-            background-color: #F1F1F1;
-            font-family: PingFangSC-Medium;
-            height: 50px;
-            padding:0 20px;
-            font-weight: 500;
-            font-size: 14px;
-            color: #333333;
-        }
-        // 表格表头部分单元格的befor样式
-        .ant-table-thead > tr > th::before{
-            content: '';
-            width: 0px !important;
-        }
-        // 按钮为link时的样式
-        .ant-btn-link{
-            padding-left: 0px;
-        }
-        // 上一页下一页背景颜色
-        .ant-pagination-prev, .ant-pagination-next, .ant-pagination-jump-prev, .ant-pagination-jump-next{
-            width: 40px;
-            height: 28px;
-            line-height: 28px;
-            background: #F7F7F7;
-            border: 0px solid #DDDDDD;
-            border-radius: 3px;
-            margin-right: 8px;
-        }
-        // 页码处主体样式
-        .ant-pagination-item{
-            width: 34px;
-            height: 28px;
-            border: none;
-            line-height: 28px;
-            border-radius: 3px;
-            margin-right: 8px;
-        }
-        // 未被选中页码时颜色及字体颜色
-        .ant-pagination-item a{
-            font-family: PingFangSC-Regular;
-            font-weight: 400;
-            font-size: 14px;
-            color: #62646D;   
-        }
-        // 页码被选中时里的背景框颜色
-        .ant-pagination-item-active{
-            width: 34px;
-            height: 28px;
-            background: rgba(9,193,153,0.10);
-            border-radius: 3px;
-            margin-right: 8px;
-        }
-        // 页码被选中时里的a链接的字体颜色
-        .ant-pagination-item-active a{
-            color: #09C199;
-        }
-        // 无上一页或下一页数据时
-        .ant-pagination-disabled .ant-pagination-item-link, .ant-pagination-disabled:hover .ant-pagination-item-link, .ant-pagination-disabled:focus-visible .ant-pagination-item-link{
-            color: #BBBBBB;
-            border-color: #DDDDDD;
-            cursor: not-allowed;
-            background: #F7F7F7;
-        }
-        .ant-select:not(.ant-select-customize-input) .ant-select-selector{
-            height: 28px;
-            display: flex;
-            align-items: center;
-        }
-    }
-}
+  }

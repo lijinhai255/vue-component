@@ -3,9 +3,9 @@
  */
 import { memo, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Tag, Button } from 'antd';
 import store from '@/store';
 
-import { Tag, Button } from 'antd';
 import FormWrap from '../component/FormWrap';
 import style from './style.module.scss';
 import CompanyInfo from './component/companyInfo';
@@ -40,7 +40,7 @@ function Register() {
       apiSystemOrgDetail({
         id: JSON.parse(sessionStorage.getItem('userinfo') as string).orgId,
       }).then((res: any) => {
-        if (res.data.code == 200) {
+        if (res.data.code === 200) {
           setcompanyData({
             ...companyData,
             auditContent: res.data.data.auditContent || '--',
@@ -49,7 +49,6 @@ function Register() {
         } else {
           VerifyUtils.Toast('info', res.data.msg);
         }
-        console.log(res);
       });
     }
   }, []);
@@ -143,17 +142,13 @@ function Register() {
       </FormWrap>
       {culCurrentPathName() && (
         <div className={style.DraweBtn_fix}>
-          {
-            <>
-              <Button
-                onClick={() => {
-                  history.go(-1);
-                }}
-              >
-                返回
-              </Button>
-            </>
-          }
+          <Button
+            onClick={() => {
+              history.go(-1);
+            }}
+          >
+            返回
+          </Button>
         </div>
       )}
     </>

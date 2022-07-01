@@ -10,7 +10,7 @@ export const middle_login = (params: {
   username: string;
 }) => {
   return request({
-    url: '/login',
+    url: '/organization/api-token-auth',
     data: params,
     method: 'post',
   });
@@ -603,7 +603,7 @@ export function user_create(data: {
     code: number;
     msg: string;
     data: RolesList['userList'];
-  }>({ url: '/system/user/create', data: data, method: 'POST' });
+  }>({ url: '/system/user/create', data, method: 'POST' });
 }
 export function user_edit(data: {
   id?: string | number | undefined;
@@ -613,7 +613,7 @@ export function user_edit(data: {
     code: number;
     msg: string;
     data: RolesList['userList'];
-  }>({ url: '/system/user/edit', data: data, method: 'POST' });
+  }>({ url: '/system/user/edit', data, method: 'POST' });
 }
 export function org_create(data: {
   bankOrgId?: string[] | number[] | undefined;
@@ -626,5 +626,5 @@ export function org_create(data: {
     code: number;
     msg: string;
     data: RolesList['userList'];
-  }>({ url: '/system/org/create', data: data, method: 'POST' });
+  }>({ url: '/system/org/create', data, method: 'POST' });
 }

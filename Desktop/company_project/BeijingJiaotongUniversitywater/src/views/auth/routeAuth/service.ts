@@ -24,8 +24,11 @@ export interface TreeAddForm {
   kind: number; // 菜单类型 0, 按钮类型 1
   name: string; // 名称
   ident: string; // 标识
+  order_num: number; // 顺序
+  secondary_org_id?: number | string | null; // 父级ID
   orderNum: number; // 顺序
   parentId?: number | string | null; // 父级ID
+  parent?: number | string | null; // 父级ID
   web_path?: string; // 前端路由地址
   component_path: string; // 前端组件地址
   icon?: string; // 前端图标地址

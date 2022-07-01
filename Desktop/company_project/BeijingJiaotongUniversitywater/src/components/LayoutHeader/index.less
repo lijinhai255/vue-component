@@ -15,15 +15,16 @@
       right: 0;
       z-index: 9;
       transition: width 0.2s;
+      height: 60px;
     }
 
     &--close&--fix {
       width: calc(100% - @sideBarCloseWidth);
     }
 
-    &--fix&--side {
-      width: calc(100% - @sideBarWidth);
-    }
+    // &--fix&--side {
+    //   width: calc(100% - @sideBarWidth);
+    // }
 
     &--fix&--side&--close {
       width: calc(100% - @sideBarCloseWidth);
@@ -44,7 +45,9 @@
 
     &--side {
       .layout__header__inner {
-        background: #fff;
+        background: #005BAC;
+        display: flex;
+        justify-content:space-between ;
       }
     }
 

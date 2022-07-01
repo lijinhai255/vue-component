@@ -44,7 +44,7 @@ const UserLayout = () => {
           <div className='top'>
             {/* <Typography.Title className='header'>
               <Link to='/'>
-                <span className='title'>企业碳减排账户管理系统</span>
+                <span className='title'>碳中和智能化管理平台</span>
               </Link>
             </Typography.Title> */}
             {/* <div className='desc'>让所有产品都有碳足迹</div> */}
@@ -57,6 +57,7 @@ const UserLayout = () => {
                   key={menu.path}
                   path={menu.path}
                   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                  //@ts-ignore
                   component={menu.component}
                 />
               ))}

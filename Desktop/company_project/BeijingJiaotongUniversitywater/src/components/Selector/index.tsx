@@ -88,6 +88,7 @@ export const Selector = memo(
         placeholder={placeholder || '下拉选择，也可自行添加'}
         listItemHeight={10}
         listHeight={160}
+        // eslint-disable-next-line react/no-unstable-nested-components
         dropdownRender={menus => (
           <div>
             <Spin spinning={loading}>

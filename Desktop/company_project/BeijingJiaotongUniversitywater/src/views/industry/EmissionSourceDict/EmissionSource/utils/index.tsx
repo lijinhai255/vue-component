@@ -78,7 +78,7 @@ export const renderChildren = (children: Children) => {
     case EmissionFormType.selectAndMsgBox:
       return <SelectAndMsgBox {...children.props} />;
     default:
-      return <></>;
+      return null;
   }
 };
 // 时间转换

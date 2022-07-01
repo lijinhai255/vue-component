@@ -4,6 +4,7 @@
 import { memo, useMemo, useState, useEffect, useCallback } from 'react';
 import { Button, Form } from 'antd';
 import { useHistory } from 'react-router-dom';
+import moment from 'moment';
 import store from '@/store';
 
 import {
@@ -18,7 +19,6 @@ import style from '../style.module.scss';
 import VerifyUtils, { PersonKeys } from '@/utils/verifty';
 import { EnterpriseContentList, getCurrency } from '../jsontsx/enterprise';
 // import { UploadFile } from 'antd/lib/upload/interface';
-import moment from 'moment';
 
 function Register() {
   const [form] = Form.useForm();
@@ -48,8 +48,8 @@ function Register() {
   const history = useHistory();
   const onSubmit = async () => {
     await form.validateFields().then((res: EnterpriseCreate) => {
-      let values = res;
-      let newVal = {
+      const values = res;
+      const newVal = {
         foundDate:
           form.getFieldsValue().foundDate === ''
             ? ''
@@ -80,7 +80,7 @@ function Register() {
       // //@ts-ignore
       // let regAreaCodeStr = values.regAreaCode[2];
       if (type === 'edit') {
-        let val = { ...values, ...newVal };
+        const val = { ...values, ...newVal };
         apiEnterpriseRegEdit({
           ...val,
           id:
@@ -305,15 +305,15 @@ function Register() {
         requiredMark={false}
         className={style.from_companyInfo}
       >
-        {companyItemFn.map((item: any, index: number) => {
+        {companyItemFn.map((item: any) => {
           return (
             <Form.Item
               className={
                 item.classNames ? style[item.classNames] : style.oneName
               }
-              key={index}
               label={item.name}
               name={item.title}
+              key={item.title}
               rules={item.require}
             >
               {item.label}

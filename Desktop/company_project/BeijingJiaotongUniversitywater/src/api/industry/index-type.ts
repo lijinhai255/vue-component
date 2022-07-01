@@ -32,6 +32,7 @@ export interface SysDictDataResult {
   recordId?: number;
   projectId?: string;
   reportStatus_name?: string;
+  is_active?: boolean;
 }
 
 export type SysDictUpdatePayload = {

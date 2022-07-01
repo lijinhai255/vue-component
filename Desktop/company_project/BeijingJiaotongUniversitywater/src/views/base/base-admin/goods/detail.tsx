@@ -15,7 +15,7 @@ import style from '../index.module.scss';
 import { apiGoodsInfo } from '../../service';
 import { combineClassName } from '@/utils';
 import { useProductColumn } from './formColumn';
-import { apiMnumListALLByDictTypeBatch } from '../../../emission/service';
+import { apiMnumListALLByDictTypeBatch } from '../../../data-quality-management/service-old';
 
 const GoodsDetail: FC = () => {
   interface BaseDataProps {

@@ -52,10 +52,11 @@ const userReducer: Reducer<UserState, IAction<any>> = (
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { type, payload } = action;
   console.log(type, 'userReducer=userReducer');
+  console.log(payload, 'payload');
   switch (type) {
     case SET_USER_INFO:
       LocalStore.setValue(USER_KEY, payload);
-      setToken(payload.accessToken);
+      setToken(payload.token);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return {
         ...payload,

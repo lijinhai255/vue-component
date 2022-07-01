@@ -1,6 +1,7 @@
 import { Button, Form, Input } from 'antd';
 import React from 'react';
 import style from './login.module.scss';
+
 export interface LoginListIndex {
   list: List[];
   ruleList: RuleList;
@@ -69,17 +70,17 @@ const passreg = /^[0-9A-Za-z]{8,20}$/;
 const ruleList: LoginListIndex['ruleList'] = {
   username: [
     { required: true, message: '请输入手机号' },
-    {
-      pattern:
-        /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/,
-      message: '手机号错误',
-    },
+    // {
+    //   pattern:
+    //     /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/,
+    //   message: '手机号错误',
+    // },
   ],
   vfcode: [
     { required: true, message: '请输入验证码' },
-    //@ts-ignore
-    ({}) => ({
-      //@ts-ignore
+    // @ts-ignore
+    () => ({
+      // @ts-ignore
       validator(_, value) {
         if (value) {
           if (value.length === 6) {
@@ -91,14 +92,14 @@ const ruleList: LoginListIndex['ruleList'] = {
     }),
   ],
   password: [
-    //@ts-ignore
-    ({}) => ({
-      //@ts-ignore
+    // @ts-ignore
+    () => ({
+      // @ts-ignore
       validator(_, value) {
         if (passreg.test(value)) {
           return Promise.resolve();
         }
-        return Promise.reject(new Error('登录密码格式不正确!'));
+        return Promise.reject(new Error('用户名或密码错误'));
       },
     }),
   ],
@@ -111,9 +112,9 @@ const ruleList: LoginListIndex['ruleList'] = {
       pattern: /^[a-zA-Z0-9_]*$/,
       message: '密码格式不正确',
     },
-    //@ts-ignore
+    // @ts-ignore
     ({ getFieldValue }) => ({
-      //@ts-ignore
+      // @ts-ignore
       validator(_, value) {
         if (!value || getFieldValue('password') === value) {
           return Promise.resolve();
@@ -290,7 +291,7 @@ export const list: LoginListIndex['list'] = [
       {
         type: 'input',
         name: 'username',
-        placeholder: '手机号',
+        placeholder: '用户名',
         itemclass: `${style.codeLine74}`,
         lineClass: `${style.codeItem}`,
         rules: ruleList.username,
@@ -303,14 +304,14 @@ export const list: LoginListIndex['list'] = [
         lineClass: `${style.codeItem}`,
         rules: ruleList.password,
       },
-      {
-        type: 'forgetpass',
-        name: '',
-        itemclass: `${style.codeforget}`,
-        placeholder: '登录',
-        lineClass: `${style.codeItem}`,
-        rules: [],
-      },
+      // {
+      //   type: 'forgetpass',
+      //   name: '',
+      //   itemclass: `${style.codeforget}`,
+      //   placeholder: '登录',
+      //   lineClass: `${style.codeItem}`,
+      //   rules: [],
+      // },
       {
         type: 'sendbtn',
         name: '',
@@ -319,14 +320,14 @@ export const list: LoginListIndex['list'] = [
         lineClass: `${style.codeItem}`,
         rules: [],
       },
-      {
-        type: 'signlogins',
-        name: '',
-        placeholder: '确认修改',
-        itemclass: `${style.codeLineitemlogin}`,
-        lineClass: `${style.codeItem}`,
-        rules: [],
-      },
+      // {
+      //   type: 'signlogins',
+      //   name: '',
+      //   placeholder: '确认修改',
+      //   itemclass: `${style.codeLineitemlogin}`,
+      //   lineClass: `${style.codeItem}`,
+      //   rules: [],
+      // },
     ],
   },
 ];
@@ -365,7 +366,7 @@ export const listHtml = (
                 );
               }}
             />
-            <span className={style.line}></span>
+            <span className={style.line} />
             <Form.Item name='vfcode' noStyle>
               <Button
                 type='link'
@@ -416,7 +417,7 @@ export const listHtml = (
         </span>
       );
     case 'forgetpasstext':
-      return <span className={style.loginforgreen}></span>;
+      return <span className={style.loginforgreen} />;
     case 'signlogin':
       return (
         <span

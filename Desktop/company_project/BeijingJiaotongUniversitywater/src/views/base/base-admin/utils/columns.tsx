@@ -3,12 +3,13 @@
  */
 
 import { Button, Space, Popconfirm, Tag, Tooltip } from 'antd';
-import { IconFont } from '@/components/IconFont';
 import { ColumnType } from 'antd/es/table';
 import { Dictionary } from 'lodash';
-import * as H from 'history';
+import { RouterProps } from 'react-router-dom';
+import { IconFont } from '@/components/IconFont';
 import Permission from '@/utils/permission';
-import { apiSystemFileUrlFn } from '../utils/index';
+import { apiSystemFileUrlFn } from './index';
+
 type DictColumnProps<T> = {
   onEdit?: (record: T) => void;
   onProduct?: (record: T, type?: string) => void;
@@ -26,7 +27,7 @@ type DictColumnProps<T> = {
   generate?: (record: T) => void;
   greenPerformance?: (record: T) => void;
   previewFn?: (record: T) => void;
-  history: H.History<H.LocationState>;
+  history: RouterProps['history'];
   orgType?: string;
 };
 type SexObjType = {
@@ -81,10 +82,10 @@ export const orgStatusObj: SexObjType = {
   1: '待审核',
   2: '审核不通过',
 };
-const proStatusObj: SexObjType = {
-  0: '启用',
-  1: '禁用',
-};
+// const proStatusObj: SexObjType = {
+//   0: '启用',
+//   1: '禁用',
+// };
 const colorObj: SexObjType = {
   0: 'gold',
   1: 'cyan',
@@ -144,8 +145,10 @@ export const useDictColumn = <T extends Dictionary<any>>({
   previewFn,
 }: DictColumnProps<T>): ColumnType<T>[] => {
   // console.log(orgType, 'orgType=orgType');
-  // 用户管理
-  if (history.location.pathname.indexOf('business-info') >= 0) {
+  // 生产系统管理
+  if (
+    history.location.pathname.indexOf('data-quality-management/production') >= 0
+  ) {
     return [
       {
         dataIndex: 'id',
@@ -155,9 +158,8 @@ export const useDictColumn = <T extends Dictionary<any>>({
         render: (t: string, record: T, index) => index + 1,
       },
       {
-        dataIndex: 'orgName',
-        title: '企业名称',
-        width: 300,
+        dataIndex: 'sys_name',
+        title: '系统名称',
         ellipsis: true,
         render: (t: string) => {
           return (
@@ -168,93 +170,154 @@ export const useDictColumn = <T extends Dictionary<any>>({
         },
       },
       {
-        dataIndex: 'orgStatus',
-        title: '审核状态',
-        ellipsis: true,
-        render: (t: keyof SexObjType) => {
-          return t === 0 ? '审核通过' : t === 1 ? '审核中' : '审核未通过';
-        },
+        dataIndex: 'create_org',
+        title: '所属组织',
       },
       {
-        dataIndex: 'auditContent',
-        title: '审核说明',
-        width: 300,
+        dataIndex: 'sys_number',
+        title: '系统编号',
         ellipsis: true,
-        render: (t: string, recode: T) => {
-          return (
-            <Tooltip
-              placement='topLeft'
-              title={recode.auditContent ? recode.auditContent : '-'}
-            >
-              {recode.auditContent ? recode.auditContent : '-'}
-            </Tooltip>
-          );
-        },
       },
       {
-        dataIndex: 'auditTime',
-        title: '审核时间',
+        dataIndex: 'sys_type_zh_hans',
+        title: '系统类型',
         // width: 220,
-        ellipsis: true,
-        render: (t: string, recode: T) => {
-          return (
-            <Tooltip
-              placement='topLeft'
-              title={recode.auditTime ? recode.auditTime : '-'}
-            >
-              {recode.auditTime ? recode.auditTime : '-'}
-            </Tooltip>
-          );
-        },
-      },
-      {
-        dataIndex: 'createTime',
-        title: '提交时间',
-        // width: 220,
-        ellipsis: true,
-        render: (t: string, recode: T) => {
-          return (
-            <Tooltip
-              placement='topLeft'
-              title={recode.createTime ? recode.createTime : '-'}
-            >
-              {recode.createTime ? recode.createTime : '-'}
-            </Tooltip>
-          );
-        },
       },
       {
         dataIndex: 'actions',
         title: '操作',
-        width: 146,
+        width: 180,
         render: (text: any, record: T) => {
           // @ts-ignore
           return (
             <Space>
-              <Permission flag='/business-infor/list/detail'>
-                <Button
-                  type='link'
-                  onClick={() =>
-                    history.push(`/business-infor/list/detail?${record.id}`)
-                  }
-                >
-                  详情
-                </Button>
-              </Permission>
-              {record.orgStatus_name === '待审核' ? (
-                <Permission flag='/business-infor/list/exam'>
-                  <Button
-                    type='link'
-                    onClick={() =>
-                      history.push(`/business-infor/list/exam?${record?.id}`)
-                    }
-                  >
-                    审核
-                  </Button>
-                </Permission>
-              ) : (
-                ''
-              )}
+              {/* <Permission flag='/business-infor/list/detail'> */}
+              <Button
+                type='link'
+                onClick={() =>
+                  history.push(
+                    `/data-quality-management/production/detail?${record.id}`,
+                  )
+                }
+              >
+                查看
+              </Button>
+              {/* </Permission> */}
+              {/* <Permission flag='/business-infor/list/exam'> */}
+              <Button
+                type='link'
+                onClick={() =>
+                  history.push(
+                    `/data-quality-management/production/edit?${record?.id}`,
+                  )
+                }
+              >
+                编辑
+              </Button>
+              <Popconfirm
+                title='是否删除'
+                onConfirm={() => {
+                  onDelete?.(record);
+                }}
+                onCancel={() => {}}
+                okText='确定'
+                cancelText='取消'
+              >
+                <Button type='link'>删除</Button>
+              </Popconfirm>
+            </Space>
+          );
+        },
+      },
+    ];
+  }
+  // 生产系统管理
+  if (
+    history.location.pathname.indexOf('data-quality-management/standard') >= 0
+  ) {
+    return [
+      {
+        dataIndex: 'id',
+        title: '序号',
+        width: 79,
+        render: (t: string, record: T, index) => index + 1,
+      },
+      {
+        dataIndex: 'zh_hans_name',
+        title: '中文标准名称',
+        ellipsis: true,
+        render: (t: string) => {
+          return (
+            <Tooltip placement='topLeft' title={t}>
+              {t}
+            </Tooltip>
+          );
+        },
+      },
+      {
+        dataIndex: 'level_zh_hans',
+        title: '标准级别',
+      },
+      {
+        dataIndex: 'classify_zh_hans',
+        title: '标准分类',
+      },
+      {
+        dataIndex: 'status_zh_hans',
+        title: '状态',
+      },
+      {
+        dataIndex: 'create_time',
+        title: '发布日期',
+      },
+      {
+        dataIndex: 'actions',
+        title: '操作',
+        width: 230,
+        render: (text: any, record: T) => {
+          return (
+            <Space>
+              <Button
+                style={{ paddingLeft: '0' }}
+                type='link'
+                // data-type={text}
+                onClick={async () => {
+                  await apiSystemFileUrlFn(record.reportFile);
+                }}
+              >
+                下载
+              </Button>
+              <Button
+                type='link'
+                onClick={() =>
+                  history.push(
+                    `/data-quality-management/standard/detail?${record.id}`,
+                  )
+                }
+              >
+                查看
+              </Button>
+              <Button
+                type='link'
+                onClick={() =>
+                  history.push(
+                    `/data-quality-management/standard/edit?${record?.id}`,
+                  )
+                }
+              >
+                编辑
+              </Button>
+              <Popconfirm
+                title='是否删除'
+                onConfirm={() => {
+                  onDelete?.(record);
+                }}
+                onCancel={() => {}}
+                okText='确定'
+                cancelText='取消'
+              >
+                <Button type='link'>删除</Button>
+              </Popconfirm>
             </Space>
           );
         },
@@ -265,13 +328,13 @@ export const useDictColumn = <T extends Dictionary<any>>({
   if (history.location.pathname.indexOf('auth/org') >= 0) {
     return [
       {
-        dataIndex: 'index',
+        dataIndex: 'id',
         title: '序号',
         width: 68,
         render: (t: string, record: T, index) => index + 1,
       },
       {
-        dataIndex: 'orgName',
+        dataIndex: 'name',
         title: '组织名称',
         width: 222,
         ellipsis: true,
@@ -284,17 +347,14 @@ export const useDictColumn = <T extends Dictionary<any>>({
         },
       },
       {
-        dataIndex: 'orgType',
-        title: '组织类型',
+        dataIndex: 'abbreviation',
+        title: '组织简称',
         width: 96,
         ellipsis: true,
-        render: (t: keyof SexObjType) => {
-          return orgTypeObj[t];
-        },
       },
       {
-        dataIndex: 'regArea',
-        title: '注册地区',
+        dataIndex: 'org_code',
+        title: '组织编号',
         width: 222,
         ellipsis: true,
         render: produceAreaCode => {
@@ -306,8 +366,8 @@ export const useDictColumn = <T extends Dictionary<any>>({
         },
       },
       {
-        dataIndex: 'createByUsername',
-        title: '创建者',
+        dataIndex: 'parent_name',
+        title: '上级组织',
         width: 124,
         ellipsis: true,
         render: produceAreaCode => {
@@ -319,85 +379,21 @@ export const useDictColumn = <T extends Dictionary<any>>({
         },
       },
       {
-        dataIndex: 'contactName',
-        title: '联系人',
-        width: 82,
-        ellipsis: true,
-        render: produceAreaCode => {
-          return (
-            <Tooltip title={produceAreaCode || '-'}>
-              {produceAreaCode || '-'}
-            </Tooltip>
-          );
-        },
-      },
-      {
-        dataIndex: 'contactMobile',
-        title: '联系人电话',
-        width: 123,
-        ellipsis: true,
-        render: produceAreaCode => {
-          return (
-            <Tooltip title={produceAreaCode || '-'}>
-              {produceAreaCode || '-'}
-            </Tooltip>
-          );
-        },
-      },
-      {
-        dataIndex: 'orgStatus',
-        title: '状态',
-        width: 110,
-        ellipsis: true,
-        render: (t: keyof SexObjType) => {
-          return orgStatusObj[t];
-        },
-      },
-      {
-        dataIndex: 'createTime',
-        title: '创建时间',
-        width: 183,
-        fixed: 'right',
-        ellipsis: true,
-        render: (t: string) => {
-          return (
-            <Tooltip placement='topLeft' title={t}>
-              {t}
-            </Tooltip>
-          );
-        },
-      },
-      {
         dataIndex: 'actions',
         title: '操作',
         width: 136,
-        fixed: 'right',
         render: (text: any, record: T) => {
           // @ts-ignore
           return (
             <Space>
-              <Permission flag='/auth/role/detail'>
-                <Button
-                  type='link'
-                  onClick={() => history.push(`/auth/org/detail?${record.id}`)}
-                >
-                  详情
-                </Button>
-              </Permission>
-              {record.orgStatus === 1 ? (
-                <Permission flag='/auth/role/examine'>
-                  <Button
-                    type='link'
-                    onClick={() =>
-                      history.push(`/auth/org/examine?id=${record?.id}`)
-                    }
-                  >
-                    审核
-                  </Button>
-                </Permission>
-              ) : (
-                ''
-              )}
+              {/* <Permission flag='/business-infor/list/exam'> */}
+              <Button
+                type='link'
+                onClick={() => history.push(`/auth/org/edit?id=${record.id}`)}
+              >
+                编辑
+              </Button>
+              {/* </Permission> */}
             </Space>
           );
         },
@@ -408,14 +404,14 @@ export const useDictColumn = <T extends Dictionary<any>>({
   if (history.location.pathname.indexOf('/auth/role') >= 0) {
     return [
       {
-        dataIndex: 'index',
+        dataIndex: 'id',
         title: '序号',
         width: 68,
         ellipsis: true,
         render: (t: string, record: T, index) => index + 1,
       },
       {
-        dataIndex: 'roleName',
+        dataIndex: 'name',
         title: '角色名称',
         width: 110,
         ellipsis: true,
@@ -424,40 +420,17 @@ export const useDictColumn = <T extends Dictionary<any>>({
         ),
       },
       {
-        dataIndex: 'presetFlag',
-        title: '是否预置角色',
+        dataIndex: 'kind_zh_hans',
+        title: '角色类型',
         width: 124,
         ellipsis: true,
-        render: (presetFlag: string) =>
-          Number(presetFlag) === 0 ? '否' : '是',
+        // render: (presetFlag: string) =>
+        //   Number(presetFlag) === 0 ? '否' : '是',
       },
       {
-        dataIndex: 'roleInfo',
-        title: '角色描述',
-        width: 180,
-        ellipsis: true,
-        render: (presetFlag: string) => (
-          <Tooltip title={presetFlag}>{presetFlag}</Tooltip>
-        ),
-      },
-      {
-        dataIndex: 'orgType',
-        title: '组织类型',
-        width: 124,
-        ellipsis: true,
-        render: (t: keyof SexObjType) => {
-          return orgTypeObj[t];
-        },
-      },
-      {
-        dataIndex: 'userNum',
-        title: '账号数量',
-        width: 96,
-      },
-      {
-        dataIndex: 'updateTime',
-        title: '更新时间',
-        width: 183,
+        dataIndex: 'description',
+        title: '描述',
+        width: 230,
         ellipsis: true,
         render: (presetFlag: string) => (
           <Tooltip title={presetFlag}>{presetFlag}</Tooltip>
@@ -473,46 +446,42 @@ export const useDictColumn = <T extends Dictionary<any>>({
           return (
             <Space>
               {
-                <Permission flag='/auth/role/detail-chongqing'>
-                  <Button
-                    type='link'
-                    onClick={() =>
-                      history.push(`/auth/role/detail?id=${record.id}`)
-                    }
-                  >
-                    详情
-                  </Button>
-                </Permission>
+                // <Permission flag='/auth/role'>
+                <Button
+                  type='link'
+                  onClick={() =>
+                    history.push(`/auth/role/detail?id=${record.id}`)
+                  }
+                >
+                  查看
+                </Button>
+                // </Permission>
               }
-              {Number(record.presetFlag) === 0 && (
-                <Permission flag='/auth/role/edit-chongqing'>
-                  <Button
-                    type='link'
-                    onClick={() =>
-                      history.push(`/auth/role/edit?id=${record.id}`)
-                    }
-                  >
-                    编辑
-                  </Button>
-                </Permission>
-              )}
-              {Number(record.presetFlag) === 0 && (
-                <Permission flag='/auth/role/del-chongqing'>
-                  <Popconfirm
-                    title={`是否删除`}
-                    onConfirm={() => {
-                      onDelete?.(record);
-                    }}
-                    onCancel={() => {}}
-                    okText='确定'
-                    cancelText='取消'
-                  >
-                    <Button type='link' danger>
-                      删除
-                    </Button>
-                  </Popconfirm>
-                </Permission>
-              )}
+              {/* {Number(record.presetFlag) === 0 && (
+                <Permission flag='/auth/role/edit-chongqing'> */}
+              <Button
+                type='link'
+                onClick={() => history.push(`/auth/role/edit?id=${record.id}`)}
+              >
+                编辑
+              </Button>
+              {/* </Permission>
+              )} */}
+              {/* {Number(record.presetFlag) === 0 && (
+                <Permission flag='/auth/role/del-chongqing'> */}
+              <Popconfirm
+                title='是否删除'
+                onConfirm={() => {
+                  onDelete?.(record);
+                }}
+                onCancel={() => {}}
+                okText='确定'
+                cancelText='取消'
+              >
+                <Button type='link'>删除</Button>
+              </Popconfirm>
+              {/* </Permission>
+              )} */}
             </Space>
           );
         },
@@ -523,19 +492,31 @@ export const useDictColumn = <T extends Dictionary<any>>({
   if (history.location.pathname.indexOf('/auth/user') >= 0) {
     return [
       {
-        dataIndex: 'index',
+        dataIndex: 'id',
         title: '序号',
         width: 68,
         render: (t: string, record: T, index) => index + 1,
       },
       {
         dataIndex: 'username',
-        title: '手机号',
+        title: '账号',
         width: 125,
         ellipsis: true,
       },
       {
-        dataIndex: 'orgName',
+        dataIndex: 'nick_name',
+        title: '姓名',
+        width: 125,
+        ellipsis: true,
+      },
+      {
+        dataIndex: '_phone',
+        title: '联系方式',
+        width: 125,
+        ellipsis: true,
+      },
+      {
+        dataIndex: 'organization_name',
         title: '所属组织',
         width: 96,
         ellipsis: true,
@@ -544,8 +525,8 @@ export const useDictColumn = <T extends Dictionary<any>>({
         },
       },
       {
-        dataIndex: 'orgType',
-        title: '组织类型',
+        dataIndex: 'organization_id',
+        title: '组织名称',
         width: 96,
         ellipsis: true,
         render: (t: keyof SexObjType) => {
@@ -553,28 +534,22 @@ export const useDictColumn = <T extends Dictionary<any>>({
         },
       },
       {
-        dataIndex: 'roleNames',
-        title: '用户角色',
-        width: 110,
+        dataIndex: 'role',
+        title: '角色',
+        width: 96,
         ellipsis: true,
-        render: text => {
-          return <Tooltip title={text || '--'}>{text || '--'}</Tooltip>;
+        render: (t: keyof SexObjType) => {
+          return orgTypeObj[t];
         },
       },
       {
-        dataIndex: 'userStatus',
+        dataIndex: 'is_active',
         title: '状态',
         width: 68,
         ellipsis: true,
-        render: (t: keyof SexObjType) => {
-          return proStatusObj[t];
+        render: (t: boolean) => {
+          return t ? '启用' : '禁用';
         },
-      },
-      {
-        dataIndex: 'createTime',
-        title: '创建时间',
-        width: 143,
-        ellipsis: true,
       },
       {
         dataIndex: 'actions',
@@ -584,6 +559,16 @@ export const useDictColumn = <T extends Dictionary<any>>({
           // @ts-ignore
           return (
             <Space>
+              {/* <Permission flag='/auth/user/detail'> */}
+              <Button
+                type='link'
+                onClick={() => {
+                  history.push(`/auth/user/detail?${record.id}`);
+                }}
+              >
+                查看
+              </Button>
+              {/* </Permission> */}
               <Button
                 type='link'
                 onClick={() => {
@@ -592,39 +577,28 @@ export const useDictColumn = <T extends Dictionary<any>>({
               >
                 编辑
               </Button>
-              <Permission flag='/auth/user/detail'>
-                <Button
-                  type='link'
-                  onClick={() => {
-                    history.push(`/auth/user/detail?${record.id}`);
-                  }}
-                >
-                  详情
+              {/* <Permission flag='/auth/user/updateStatus'> */}
+              <Popconfirm
+                title={`是否${!record.is_active ? '启用' : '禁用'}`}
+                onConfirm={() => {
+                  updateStatus?.(record);
+                }}
+                onCancel={() => {}}
+                okText='确定'
+                cancelText='取消'
+              >
+                <Button type='link'>
+                  {!record.is_active ? '启用' : '禁用'}
                 </Button>
-              </Permission>
-              <Permission flag='/auth/user/updateStatus'>
-                <Popconfirm
-                  title={`是否${
-                    Number(record.userStatus) === 0 ? '禁用' : '启用'
-                  }`}
-                  onConfirm={() => {
-                    updateStatus?.(record);
-                  }}
-                  onCancel={() => {}}
-                  okText='确定'
-                  cancelText='取消'
-                >
-                  <Button type='link'>
-                    {Number(record.userStatus) === 0 ? '禁用' : '启用'}
-                  </Button>
-                </Popconfirm>
-              </Permission>
+              </Popconfirm>
+              {/* </Permission> */}
             </Space>
           );
         },
       },
     ];
   }
+
   // 项目信息
   if (history.location.pathname.indexOf('/mession-reduction/info') >= 0) {
     return [
@@ -664,7 +638,7 @@ export const useDictColumn = <T extends Dictionary<any>>({
         title: '项目申请时间',
         width: 180,
         ellipsis: true,
-        render: (t: keyof SexObjType) => (t ? t : '-'),
+        render: (t: keyof SexObjType) => t || '-',
       },
       {
         dataIndex: 'replyTime',
@@ -723,7 +697,7 @@ export const useDictColumn = <T extends Dictionary<any>>({
               {[0].indexOf(record.auditStatus) >= 0 && (
                 // <Permission flag='/mession-reduction/info/del'>
                 <Popconfirm
-                  title={`是否删除`}
+                  title='是否删除'
                   onConfirm={() => {
                     onDelete?.(record);
                   }}
@@ -764,7 +738,7 @@ export const useDictColumn = <T extends Dictionary<any>>({
         ellipsis: true,
         width: 200,
       },
-      //companyName
+      // companyName
       {
         dataIndex: 'orgName',
         title: '申请公司',
@@ -782,7 +756,7 @@ export const useDictColumn = <T extends Dictionary<any>>({
               <IconFont
                 type='icon-icon-weixiangshenqingshan'
                 style={{
-                  color: '#09C199',
+                  color: '#005BAC',
                   fontSize: '16px',
                   marginRight: '6px',
                 }}
@@ -911,7 +885,7 @@ export const useDictColumn = <T extends Dictionary<any>>({
                 record.auditType === 1 && (
                   <Permission flag='/mession-reduction/exam/ccpdc'>
                     <Popconfirm
-                      title={`将报送至人民银行，且报送后不可撤回，是否确认报送？`}
+                      title='将报送至人民银行，且报送后不可撤回，是否确认报送？'
                       onConfirm={() => {
                         ccpbc?.(record);
                       }}
@@ -923,25 +897,23 @@ export const useDictColumn = <T extends Dictionary<any>>({
                     </Popconfirm>
                   </Permission>
                 )}
-              {
-                <Permission flag='/mession-reduction/exam/account'>
-                  {[2, 3].indexOf(record.auditStatus) >= 0 &&
-                    record.auditType === 1 && (
-                      <Button
-                        type='link'
-                        onClick={() => {
-                          account?.(record);
-                        }}
-                      >
-                        项目金额
-                      </Button>
-                    )}
-                </Permission>
-              }
+              <Permission flag='/mession-reduction/exam/account'>
+                {[2, 3].indexOf(record.auditStatus) >= 0 &&
+                  record.auditType === 1 && (
+                    <Button
+                      type='link'
+                      onClick={() => {
+                        account?.(record);
+                      }}
+                    >
+                      项目金额
+                    </Button>
+                  )}
+              </Permission>
               {[2].indexOf(record.auditStatus) >= 0 && record.auditType === 1 && (
                 // <Permission flag='/mession-reduction/exam/ccpdc'>
                 <Popconfirm
-                  title={`归档后贷款企业用户不可在该项目下继续提交监测数据，是否确认归档？`}
+                  title='归档后贷款企业用户不可在该项目下继续提交监测数据，是否确认归档？'
                   onConfirm={() => {
                     archive?.(record);
                   }}
@@ -989,10 +961,10 @@ export const useDictColumn = <T extends Dictionary<any>>({
         width: '220px',
         ellipsis: true,
         render: (t: string) => {
-          return t ? t : '-';
+          return t || '-';
         },
       },
-      //companyName
+      // companyName
       {
         dataIndex: 'reportStatus',
         title: '生成报告',
@@ -1158,10 +1130,10 @@ export const useDictColumn = <T extends Dictionary<any>>({
         ellipsis: true,
         width: 220,
         render: (t: keyof SexObjType) => {
-          return t ? t : '-';
+          return t || '-';
         },
       },
-      //companyName
+      // companyName
       {
         dataIndex: 'orgName',
         title: '申请公司',
@@ -1208,7 +1180,7 @@ export const useDictColumn = <T extends Dictionary<any>>({
               {t || '--'}
             </Button>
           ) : (
-            <Tag color=''></Tag>
+            <Tag color='' />
           );
         },
       },

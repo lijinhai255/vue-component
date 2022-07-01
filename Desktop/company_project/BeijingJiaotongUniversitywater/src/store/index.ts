@@ -15,6 +15,7 @@ import settingsReducer from './module/settings';
 import noticeReducer from './module/notice';
 import menuReducer from './module/menu';
 import transReducer from './module/transAssistant';
+
 const reducers: Reducer<
   IStoreState,
   IAction<any>
@@ -24,7 +25,7 @@ const reducers: Reducer<
   settings: settingsReducer,
   notices: noticeReducer,
   menu: menuReducer,
-  transReducer: transReducer,
+  transReducer,
 });
 
 const middleware: Middleware[] = [reduxThunk];

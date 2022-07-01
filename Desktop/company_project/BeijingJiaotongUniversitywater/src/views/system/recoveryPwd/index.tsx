@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import { Button, Form, Input } from 'antd';
 import { RuleObject } from 'antd/lib/form';
-import { updatePwd } from '@/views/auth/user/service';
+import { apiAccountPwd } from '@/views/system/service';
 import './index.scss';
 import VerifyUtils from '@/utils/verifty';
 
@@ -30,33 +30,46 @@ function RecoveryPwd() {
     }
   };
   return (
-    <>
+    <div>
+      <div
+        style={{
+          background: '#005BAC',
+          color: '#fff',
+          fontSize: '20px',
+          padding: '24px',
+        }}
+      >
+        水务系统碳中和智能化管理平台
+      </div>
       <div className='chanagePassTittle'>修改密码</div>
       <div className='changetitles'>
-        为了更安全地使用企业碳减排账户管理系统，请修改登陆密码
+        为了更安全地使用碳中和智能化管理平台，请修改登陆密码
       </div>
       <Form
         form={form}
-        className='
-            changePass'
+        className='changePass'
         labelAlign='left'
+        colon={false}
         labelCol={{ span: 7, offset: 1 }}
-        onFinish={e => {
+        onFinish={async e => {
           console.log(e);
-          updatePwd({
-            newPassword: e.checkPassowrd as string,
-          }).then((res: any) => {
-            if (res.data.code === 200) {
-              VerifyUtils.Toast('success', '修改成功');
-              sessionStorage.setItem('updatePsw', 'false');
-              history.push('/');
-            }
-            if (res.data.code === 500) VerifyUtils.Toast('info', res.data.msg);
+          const res = await apiAccountPwd({
+            confirm_password: e.checkPassowrd,
+            new_password: e.password,
+            old_password: 'carbon123456',
           });
+          if (res.data.code === 200) {
+            VerifyUtils.Toast('success', '修改成功');
+            sessionStorage.setItem('updatePsw', 'false');
+            history.push('/');
+          } else {
+            VerifyUtils.Toast('info', res.data.msg);
+          }
         }}
       >
+        <div className='label'>新密码</div>
         <Form.Item
-          label='新密码'
+          label=''
           name='password'
           rules={[
             {
@@ -80,10 +93,11 @@ function RecoveryPwd() {
             },
           ]}
         >
-          <Input.Password min={8} max={32} />
+          <Input.Password min={8} placeholder='请输入' max={32} />
         </Form.Item>
+        <div className='label'>确认新密码</div>
         <Form.Item
-          label='确认新密码'
+          label=''
           name='checkPassowrd'
           rules={[
             {
@@ -93,21 +107,24 @@ function RecoveryPwd() {
             },
           ]}
         >
-          <Input.Password min={8} max={32} />
+          <Input.Password min={8} max={32} placeholder='请输入' />
         </Form.Item>
-        <ul className='footertip'>
+        <Form.Item className='footer_btn'>
+          <Button type='primary' className='footer_btn_sub' htmlType='submit'>
+            提交
+          </Button>
+        </Form.Item>
+        <ul
+          className='footertip'
+          style={{ background: '#F7F8F9', padding: '12px' }}
+        >
           <li>密码需满足以下要求：</li>
           <li>1、同时包含大写字母、小写字母和数字</li>
           <li>2、密码长度为8-32位</li>
           <li>3、不是常见密码</li>
         </ul>
-        <Form.Item className='footer_btn'>
-          <Button type='primary' className='footer_btn_sub' htmlType='submit'>
-            确定
-          </Button>
-        </Form.Item>
       </Form>
-    </>
+    </div>
   );
 }
 

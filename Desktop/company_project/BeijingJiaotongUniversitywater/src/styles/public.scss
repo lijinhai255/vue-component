@@ -40,7 +40,7 @@ $text-18: 18px;
 $margin-left30: 30px;
 $text-bg-oranage: #fdf5e9;
 $text-bg-gray: #f2f2f2;
-$text-bg-green: #09C199;
+$text-bg-green: #005BAC;
 .margin-left30 {
   margin-left: $margin-left30;
 }
@@ -121,8 +121,8 @@ $text-bg-green: #09C199;
   height: 40px;
   font-size: 16px;
   border-radius: 4px;
-  background: #09C199;
-  border-color: #09C199;
+  background: #005BAC;
+  border-color: #005BAC;
   float: right;
   margin-top: 20px;
 }
@@ -141,8 +141,8 @@ $text-bg-green: #09C199;
 }
 .checkout_btn {
   background: #fff !important;
-  color: #09C199;
-  border: 1px solid #09C199;
+  color: #005BAC;
+  border: 1px solid #005BAC;
   font-size: 16px;
   float: right;
   margin-left: 20px;
@@ -226,7 +226,7 @@ $text-bg-green: #09C199;
   display: inline-block;
 }
 .btn-tag-green {
-  color: #09C199;
+  color: #005BAC;
   background: #e8f9e8;
 }
 .btn-tag-gray {
@@ -348,7 +348,7 @@ $text-bg-green: #09C199;
   background: #ffffff;
 }
 .tab-active {
-  color: #09C199;
+  color: #005BAC;
   background: #ffffff;
 }
 .text-666 {
@@ -466,7 +466,7 @@ position: relative;
 }
 
 .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected{
-  background: #09C199;
+  background: #005BAC;
   border-radius: 3px;
 }
 .layout__side-bar__logo--side{
@@ -496,4 +496,10 @@ position: relative;
     }
   }
   
+}
+.ant-form-item-control-input {
+  border-radius: 4px!important;
+}
+.ant-checkbox-wrapper + .ant-checkbox-wrapper {
+  margin-left: 0!important;
 }

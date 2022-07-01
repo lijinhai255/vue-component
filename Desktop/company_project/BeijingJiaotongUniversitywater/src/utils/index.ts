@@ -4,6 +4,7 @@
 import { ReactNode } from 'react';
 import { ColumnsType } from 'antd/lib/table';
 import { compact, Dictionary } from 'lodash';
+
 interface QuerystringType {
   id?: string;
   type?: string;
@@ -182,14 +183,14 @@ export const unique = <T>(arr: T[]) => {
 
 // 获取后缀名
 export const getFileSuffix = (fileName: string) => {
-  //获取最后一个.的位置
-  let index = fileName.lastIndexOf('.');
-  //获取后缀
-  let suffix = fileName.substr(index + 1);
+  // 获取最后一个.的位置
+  const index = fileName.lastIndexOf('.');
+  // 获取后缀
+  const suffix = fileName.substr(index + 1);
   return suffix;
 };
 export const expectReductionArr = () => {
-  let arr = [];
+  const arr = [];
   for (let index = 0; index < 31; index++) {
     arr.push({ dictValue: index, dictLabel: index });
   }
@@ -211,4 +212,8 @@ export function month_one_age(date: number) {
   return formatDate(
     new Date(new Date().setMonth(new Date().getMonth() - date)),
   );
+}
+
+export function returnApiV1() {
+  return `/api/v1`;
 }

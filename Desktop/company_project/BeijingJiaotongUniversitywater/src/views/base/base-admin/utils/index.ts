@@ -1,7 +1,8 @@
 import { Rule } from 'antd/lib/form';
 import { Moment } from 'moment';
-import { apiSystemFileUrl } from '../../service';
 import { message } from 'antd';
+import { apiSystemFileUrl } from '../../service';
+
 export type SearchParams = {
   userName?: string;
   companyName?: string; // 组织名称
@@ -13,10 +14,14 @@ export type SearchParams = {
   dict_data_name?: string;
   dict_data_value?: string;
   orderId?: string;
-  auditState?: string; //0待审核，1通过，2未通过；
-  testFlag?: string; //是否测试： 1是测试，0正常
+  auditState?: string; // 0待审核，1通过，2未通过；
+  testFlag?: string; // 是否测试： 1是测试，0正常
   likeOrgName?: string;
   likeProjectName?: string;
+  username?: string;
+  nick_name?: string;
+  key?: string | number;
+  is_active?: string | number | boolean | undefined;
 };
 
 export const dictParams: {
@@ -135,13 +140,13 @@ export const apiSystemFileUrlFn = async (obj: {
   await apiSystemFileUrl({ ...obj }).then(({ data }) => {
     message.info('报告下载中,请稍候...', 3).then(() => {
       // window.open(data.data, '_blank');
-      var downloadElement = document.createElement('a');
+      const downloadElement = document.createElement('a');
       downloadElement.style.display = 'none';
       downloadElement.href = data.data;
-      downloadElement.download = obj.name; //下载后文件名
+      downloadElement.download = obj.name; // 下载后文件名
       document.body.appendChild(downloadElement);
-      downloadElement.click(); //点击下载
-      document.body.removeChild(downloadElement); //下载完成移除元素
+      downloadElement.click(); // 点击下载
+      document.body.removeChild(downloadElement); // 下载完成移除元素
     });
   });
 };

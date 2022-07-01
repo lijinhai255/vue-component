@@ -56,7 +56,7 @@ const AdminConfig: Config = {
   colorWeak: false,
 
   // 项目名称
-  title: '企业碳减排账户管理系统',
+  title: '碳中和智能化管理平台',
 
   // logo
 };

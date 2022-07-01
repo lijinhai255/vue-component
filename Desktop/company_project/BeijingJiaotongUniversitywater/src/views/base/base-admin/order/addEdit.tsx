@@ -20,7 +20,7 @@ import style from './style.module.scss';
 import { combineClassName } from '@/utils';
 import { useFormik } from 'formik';
 import VerifyUtils, { PersonKeys } from '@utils/verifty';
-import Examine from '@/views/emission/library/component/examine';
+import Examine from '@/views/data-quality-management/library/component/examine';
 
 import EmissionModel, { SexObjType, modelObj } from '../component/modal';
 import {
@@ -439,13 +439,13 @@ const AddEidtGoods: FC = () => {
             if (item.type === 'DatePicker') {
               return (
                 <Form.Item key={item.name} {...item}>
-                  <DatePicker
+                  {/* <DatePicker
                     disabled={culDisAble()}
                     showTime
                     style={{ width: '100%' }}
                     format='YYYY-MM-DD HH:mm:ss'
                     placeholder='请选择'
-                  />
+                  /> */}
                 </Form.Item>
               );
             }

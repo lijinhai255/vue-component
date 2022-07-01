@@ -256,7 +256,7 @@ function UserManage() {
             <IconFont
               type='icon-icon-tianjia'
               style={{
-                color: '#09C199',
+                color: '#005BAC',
                 margin: '0 10px',
                 cursor: 'pointer',
               }}

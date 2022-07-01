@@ -72,6 +72,7 @@ function RouteAuth() {
   // 全局的loading
   const [loading, setLoading] = useState<boolean>(false);
   // tree的数据
+  //@ts-ignore
   const [treeList, setTreeList] = useState<TreeAddForm>({
     id: 0,
     menuId: 0,
@@ -82,14 +83,15 @@ function RouteAuth() {
     hidden: 'false',
     isFrame: 'false',
     visible: 'false',
-    title: '企业碳减排账户管理系统',
+    title: '碳中和智能化管理平台',
     kind: 0,
     ident: '1',
     orderNum: 1,
     status: 'true',
-    name: '企业碳减排账户管理系统',
+    name: '碳中和智能化管理平台',
     key: '0-0',
     children: [],
+    order_num: 1,
   });
   // 当前选中的tree
   const [checkTreeDetail, setCheckTreeDetail] = useState<TreeAddForm>(treeList);
@@ -225,14 +227,15 @@ function RouteAuth() {
       hidden: 'false',
       isFrame: 'false',
       visible: 'false',
-      title: '企业碳减排账户管理系统',
+      title: '碳中和智能化管理平台',
       kind: 0,
       ident: '1',
       orderNum: 1,
       status: 'true',
-      name: '企业碳减排账户管理系统',
+      name: '碳中和智能化管理平台',
       key: '0-0',
       children: [],
+      order_num: 1,
     };
     setLoading(true);
     try {

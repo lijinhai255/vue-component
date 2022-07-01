@@ -1,20 +1,20 @@
 import { Form } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
+import { AxiosResponse } from 'axios';
+import Cookies from 'js-cookie';
 import { Child, List, list, listHtml, sendobj } from './loginJson';
 import style from './login.module.scss';
 import VerifyUtils from '@/utils/verifty';
 import { apiLogin, apiRegister, apiVfcode } from '../../service';
 import { modify_reset } from '@/api/api';
-import { AxiosResponse } from 'axios';
 import { userInfo } from '../loginRes';
-import Cookies from 'js-cookie';
 
 let secondInterval: number | null = null;
 const IphoneScreen = () => {
-  const [type, settype] = useState<string>('密码登录'); //setType
+  const [type, settype] = useState<string>('密码登录'); // setType
   const [form] = Form.useForm<sendobj>();
-  const [vfcodeClass, setvfcodeClass] = useState<string>(style.linecode); //验证码的form单样式
-  const [seconds, setseconds] = useState<number>(0); //验证码倒计时
+  const [vfcodeClass, setvfcodeClass] = useState<string>(style.linecode); // 验证码的form单样式
+  const [seconds, setseconds] = useState<number>(0); // 验证码倒计时
   const sendcode = () => {
     console.log(form.getFieldsValue().username);
     if (
@@ -41,7 +41,6 @@ const IphoneScreen = () => {
     if (seconds === 0) {
       if (secondInterval) clearInterval(secondInterval);
       setseconds(0);
-      return;
     } else if (seconds === 60) {
       if (secondInterval) clearInterval(secondInterval);
       if (seconds > 0) {
@@ -53,6 +52,7 @@ const IphoneScreen = () => {
       }
     }
   }, [seconds]);
+  // eslint-disable-next-line consistent-return
   const chanageInt = (e: string) => {
     switch (e) {
       case '校验':
@@ -72,6 +72,7 @@ const IphoneScreen = () => {
         }
     }
   };
+  // eslint-disable-next-line consistent-return
   const filtertype = (sendtype: string, e: sendobj) => {
     console.log(sendtype, e, 'sendtype=sendtype');
     switch (sendtype) {
@@ -90,6 +91,7 @@ const IphoneScreen = () => {
           url: modify_reset,
           data: e,
         };
+      default:
     }
   };
   useEffect(() => {
@@ -103,9 +105,9 @@ const IphoneScreen = () => {
   }, []);
   const lofingrom = (e: sendobj) => {
     delete e.test;
-    let sendtype: string =
+    const sendtype: string =
       type === '验证码登录' || type === '密码登录' ? '登录' : type;
-    let data = filtertype(sendtype, e)?.data;
+    const data = filtertype(sendtype, e)?.data;
     filtertype(sendtype, e)
       ?.url(
         data || {
@@ -115,11 +117,11 @@ const IphoneScreen = () => {
         },
       )
       .then((res: AxiosResponse) => {
+        console.log(res.data, 'data=data');
         if (res.data.code === 200) {
           if (sendtype === '忘记密码') {
             VerifyUtils.Toast('success', '密码修改成功');
             settype('密码登录');
-            return;
           } else {
             userInfo(res.data.data, e.username);
           }
@@ -127,10 +129,10 @@ const IphoneScreen = () => {
       });
   };
   const loginList = useMemo(() => {
-    let loginHtml: List[] = list.filter((item: List) => item.label === type);
+    const loginHtml: List[] = list.filter((item: List) => item.label === type);
     return loginHtml.length > 0 ? (
       <div>
-        {type === '验证码登录' || type === '密码登录' ? (
+        {/* {type === '验证码登录' || type === '密码登录' ? (
           <div className={style.lofinfilter}>
             <span
               className={type === '密码登录' ? style.normalspan : ''}
@@ -150,7 +152,7 @@ const IphoneScreen = () => {
           </div>
         ) : (
           <div className={loginHtml[0].className}>{loginHtml[0].label}</div>
-        )}
+        )} */}
         <Form
           form={form}
           onFinishFailed={e => {
@@ -177,6 +179,7 @@ const IphoneScreen = () => {
             return (
               <Form.Item
                 name={item.name === '' ? 'test' : item.name}
+                // eslint-disable-next-line
                 key={index}
                 rules={item.rules}
                 className={`${item.itemclass}`}

@@ -303,7 +303,7 @@ function AddOrEditUser() {
       >
         <p className={Style.restPass}>
           该账号将重置为默认密码：
-          <span style={{ color: '#09C199' }}>carbon123456</span>，确认继续？
+          <span style={{ color: '#005BAC' }}>carbon123456</span>，确认继续？
         </p>
       </Modal>
     </div>

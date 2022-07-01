@@ -7,6 +7,51 @@ import {
 } from '../../../typings';
 import { Menu } from '../menu/service';
 
+export type TreeItemType = {
+  cache?: boolean;
+  component_path?: string;
+  create_time?: string;
+  creator?: null | string | number;
+  creator_dept_id?: number;
+  creator_name?: null;
+  creator_organization_id?: number;
+  creator_post_id?: number;
+  description?: string;
+  hidden?: string | boolean;
+  icon?: string;
+  id?: number;
+  permissionId?: number;
+  ident?: string;
+  isFrame?: string;
+  is_link?: string | boolean;
+  is_need_id?: boolean;
+  kind?: number;
+  name?: string;
+  orderNum: number;
+  parentId?: null | number;
+  status?: string | number;
+  title?: string;
+  tree_path?: string;
+  update_time?: string;
+  visible?: string | boolean;
+  web_path?: string;
+  children: TreeItemType[];
+  key?: number | string | undefined;
+  permissionName: string;
+  menuId: number;
+  menuType: string;
+  value: number;
+  auth?: number;
+  base?: number;
+  path?: string;
+  perms?: null | string;
+  query?: null | string;
+  remark?: string;
+  type?: string;
+  updateBy?: string;
+  updateTime?: string | null;
+  component?: string;
+};
 export interface Role {
   id?: number;
 
@@ -107,3 +152,62 @@ export function apiSetRolePermission(data: SetRolePermissionType) {
     data,
   });
 }
+
+// 权限层级树列表
+export function apiGetMenus() {
+  return request<{
+    code: number;
+    msg: string;
+    page: number;
+    pageSize: number;
+    data: TreeItemType[];
+  }>({
+    method: 'get',
+    url: '/system/menus/',
+  });
+}
+// 新增角色
+interface AccountAddType {
+  name?: string | number | undefined;
+  description: string;
+  menus: [];
+}
+export function apiRoleAdd(data: AccountAddType) {
+  return request<{
+    code: number;
+    msg: string;
+    data: any;
+    status: string;
+  }>({
+    method: 'post',
+    url: '/organization/role/',
+    data,
+  });
+}
+// 编辑角色
+export function apiRoleEdit(data: AccountAddType & { id?: number | string }) {
+  return request<{
+    code: number;
+    msg: string;
+    data: any;
+    status: string;
+  }>({
+    method: 'put',
+    url: `/organization/role/${data.id}/`,
+    data,
+  });
+}
+// 获取角色详情
+export const apiRoleDetail = (params: { id: string }) => {
+  return request<{
+    code: number;
+    msg: string;
+    data: {
+      menus: [];
+    };
+  }>({
+    url: `/organization/role/${params.id}/`,
+    params,
+    method: 'GET',
+  });
+};

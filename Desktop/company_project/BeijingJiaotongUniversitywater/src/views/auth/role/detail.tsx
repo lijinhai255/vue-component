@@ -104,6 +104,7 @@ function RoleDetaile() {
         name: '碳云',
         key: '0-0',
         children: [],
+        order_num: 1,
       };
       auth.children = initTreeStructure(res.data.data);
       console.log(auth);

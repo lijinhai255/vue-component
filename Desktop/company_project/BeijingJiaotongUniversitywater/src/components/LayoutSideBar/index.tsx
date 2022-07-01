@@ -10,12 +10,12 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Logo from '../SidebarLogo';
 import { IStoreState } from '../../store/types';
-// import { Routes } from '../../router/config';
+import { menuRoutes } from '../../router/config';
 import renderMenu from '../SideMenu';
 import './index.less';
 import { getPagePathList } from '../../router/utils';
 import { apiMenuList } from '@/api/api';
-import { RoleFilter } from './role';
+// import { RoleFilter } from './role';
 import { getToken } from '@/utils/cookie';
 import { filterChaeck } from './filterCheck';
 import VerifyUtils from '@/utils/verifty';
@@ -29,7 +29,7 @@ export const LayoutSideBar = () => {
   const { layout, theme } = selector.settings;
   // const { sidebar } = selector.app;
   // redux 里面有路由，暂时不需要
-  const [routes, setRoutes] = useState([{}]);
+  // const [routes, setRoutes] = useState([{}]);
   const [breadcrumbs, setBreadcrumbs] = useState<string[]>([]);
   const history = useHistory();
   useEffect(() => {
@@ -49,11 +49,13 @@ export const LayoutSideBar = () => {
 
   const { pathname } = window.location;
   const [path, setPath] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const getList = async () => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     await apiMenuList().then((res: any) => {
       if (res.data.code === 200) {
-        setRoutes(RoleFilter(res.data.data));
+        // setRoutes(RoleFilter(res.data.data));
+        // setRoutes([...Routes]);
         sessionStorage.setItem('role', JSON.stringify(res.data.data));
         if (filterChaeck(res.data.data))
           setPath(String(filterChaeck(res.data.data)));
@@ -64,9 +66,10 @@ export const LayoutSideBar = () => {
   };
   useEffect(() => {
     if (getToken()) {
-      getList();
+      // getList();
     }
   }, [window.location.href]);
+  console.log(menuRoutes, 'menuRoutes=menuRoutes');
   return (
     <aside
       className={classnames(
@@ -88,16 +91,15 @@ export const LayoutSideBar = () => {
             layout === 'side' && true ? getPagePathList(path || pathname) : []
           }
           mode={layout === 'side' ? 'inline' : 'horizontal'}
-          theme={theme}
+          theme='light'
           {...inlineCollapsed}
           style={{
             marginTop: '16px',
-            width: '210px',
-            position: 'relative',
-            left: '8px',
           }}
         >
-          {routes.length > 0 ? routes.map((menu: any) => renderMenu(menu)) : ''}
+          {menuRoutes.length > 0
+            ? menuRoutes.map((menu: any) => renderMenu(menu))
+            : ''}
         </Menu>
       </div>
     </aside>

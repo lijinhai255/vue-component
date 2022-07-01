@@ -3,6 +3,7 @@
  */
 import { memo, useMemo, useState, useEffect } from 'react';
 import { Form, Input, Modal, Radio, Image, Button, Tag } from 'antd';
+import { useHistory } from 'react-router-dom';
 import store from '@/store';
 import {
   apiAddress,
@@ -13,7 +14,6 @@ import {
 import style from '../index.module.scss';
 // import { RcFile } from 'antd/lib/upload';
 // import { Rule } from 'antd/lib/form';
-import { useHistory } from 'react-router-dom';
 
 import VerifyUtils from '@/utils/verifty';
 import {
@@ -158,20 +158,20 @@ function Register() {
       history.location.pathname === '/business-infor/list/exam' ||
       history.location.pathname === '/business-infor/list/detail'
     ) {
-      let id =
+      const id =
         history.location.pathname === '/business-infor/list/exam' ||
         history.location.pathname === '/business-infor/list/detail'
           ? history.location.search.split('?')[1]
           : history.location.search.split('?id=')[1];
-      setCompanyata({ ...companyData, id: id });
-      let url =
+      setCompanyata({ ...companyData, id });
+      const url =
         history.location.pathname === '/business-infor/list/exam' ||
         history.location.pathname === '/business-infor/list/detail'
           ? audit_detail
           : org_detail;
-      url({ id: id }).then((res: any) => {
+      url({ id }).then((res: any) => {
         if (res.data.code === 200) {
-          let list = res.data.data;
+          const list = res.data.data;
 
           apiAddress().then((resItem: any) => {
             console.log(resItem);
@@ -207,7 +207,7 @@ function Register() {
                 list.operationPeriodType === 1
                   ? list.operationPeriod
                   : '无固定期限';
-              let newList = {
+              const newList = {
                 ...list,
                 contactAreaCode: `${contactCodes}${list.contactAddress}`,
                 depositBankAreaCode: `${depositBankCodes}${list.depositBankAddress}`,
@@ -222,7 +222,7 @@ function Register() {
                     : '',
                 legalRepresentativeIdType:
                   list.legalRepresentativeIdType === 1 ? '身份证' : '护照',
-                operationPeriodType: operationPeriodType,
+                operationPeriodType,
                 orgStatus:
                   Number(list.orgStatus) === 0
                     ? 'success'
@@ -359,7 +359,7 @@ function Register() {
         >
           <Form form={examForm} size='middle'>
             <Form.Item
-              name={'auditPass'}
+              name='auditPass'
               label='审核意见'
               rules={[{ required: true, message: '审核意见不能为空' }]}
             >
@@ -368,7 +368,7 @@ function Register() {
                 <Radio value='0'>审核不通过</Radio>
               </Radio.Group>
             </Form.Item>
-            <Form.Item label='审核说明' name={'auditContent'}>
+            <Form.Item label='审核说明' name='auditContent'>
               <Input.TextArea placeholder='请输入审核说明' />
             </Form.Item>
           </Form>

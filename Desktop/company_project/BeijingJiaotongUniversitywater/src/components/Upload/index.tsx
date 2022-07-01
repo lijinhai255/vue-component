@@ -74,7 +74,7 @@ export const Upload: FC<Props> = memo(
                 <IconFont type='icon-icon-shangzhuantupian' />
               </p>
               <p className='ant-upload-text'>
-                拖拽至此或<span style={{ color: '#09C199' }}>点击上传</span>
+                拖拽至此或<span style={{ color: '#005BAC' }}>点击上传</span>
               </p>
               <p className='ant-upload-hint'>仅支持jpg/png格式</p>
               <p className='ant-upload-hint'>{usedSizeTip}</p>

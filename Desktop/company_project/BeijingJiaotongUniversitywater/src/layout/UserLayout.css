@@ -6,7 +6,6 @@
 }
 .content {
   flex: 1;
-  padding: 0px 0;
 }
 .title {
   color: #333;
@@ -17,13 +16,15 @@
 }
 @media (min-width: 768px) {
   .container {
-    background-image: url('../image/bg_image.png');
     background-repeat: repeat;
     background-position: top left;
     background-size: 100%;
   }
-  .content {
-    padding: 0px 0 24px;
+  .container_bg {
+    background-image: url('../image/bg_common.png');
+    background-repeat: repeat;
+    background-position: top left;
+    background-size: 100%;
   }
 }
 .top {

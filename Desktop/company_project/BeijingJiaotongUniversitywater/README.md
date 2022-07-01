@@ -1,18 +1,3 @@
-
-## 测试用户创建
-征信机构账号：15145831111/aaaa1111
-
-人民银行：15145832222/aaaa2222
-
-工商银行：15145833333/aaaa3333
-
-核查机构1：15145834444/ aaaa4444
-
-贷款机构：15145835555/aaaa5555
-- [测试后台地址](https://cq-credit-dev.carbonstop.net/)
-
-- [正式地址](https://cq-credit-test.carbonstop.net/)
-
 #### 使用技术
 
 - **UI 框架**: `react`、`react-hook`、`classnames`
@@ -167,55 +152,10 @@
 
 ### 测试环境
 
-REACT_APP_API_URL=https://cq-credit-gateway-test.carbonstop.net
+REACT_APP_API_URL=https://water-affairs-api-test.carbonstop.net
 252
 ```
 ### 开发环境
 ```text
-REACT_APP_API_URL=http://192.168.1.157:10001
+REACT_APP_API_URL=http://localhost:3000/
 ```
-## changeLog
->3月4 
-
-```text
-提交11个项目模版
-fix：相关小的需求
-```
-
-
-
-PRD地址：http://wiki.tzj.pub/pages/viewpage.action?pageId=17171793
-
-原型图地址：https://modao.cc/app/0Nwd27V4r421c0WyVAKWv 
-
-设计稿地址：https://codesign.qq.com/workspace/board/DyopjDqbq69Ve1g
-
-技术wiki地址：
-http://wiki.tzj.pub/pages/viewpage.action?pageId=22937799
-
-swagger地址
-- knife4j
-http://192.168.1.157:10001/doc.html#/home
-
-- swagger
-http://192.168.1.157:10001/swagger-ui/index.html
-
-
-地址
-本地地址：http://chongqing-credit-investigation-base-admin-2-memotion-new.carboncloud.com/dashborad/intro 
-
-外网地址：http://cq-credit-test.carbonstop.net
-
-测试环境地址：
-线上环境地址：
-开发环境账号
-- 征信机构：13011195170/aaaa1115
-- 贷款企业：16611112222/aaaa1111
-
-测试环境
-http://172.31.32.252:10001/doc.html
-
-征信机构账号：13269550737/aaaa1111
-
-
-

@@ -4,6 +4,8 @@
 import { memo, useCallback, useState, useEffect } from 'react';
 import { Button, Form, Modal } from 'antd';
 import { useHistory } from 'react-router-dom';
+import { RcFile } from 'antd/lib/upload';
+import moment from 'moment';
 import store from '@/store';
 
 import {
@@ -13,11 +15,9 @@ import {
   apiEnterpriseEdit,
 } from '@/views/system/register/service';
 import style from '../style.module.scss';
-import { RcFile } from 'antd/lib/upload';
 import VerifyUtils, { PersonKeys } from '@/utils/verifty';
 import { EnterpriseContentList, getCurrency } from '../jsontsx/enterprise';
 // import { UploadFile } from 'antd/lib/upload/interface';
-import moment from 'moment';
 import { IconFont } from '@/components/IconFont';
 import Permission from '@/utils/permission';
 
@@ -59,8 +59,8 @@ function Register() {
 
   const onSubmit = async () => {
     await form.validateFields().then((res: EnterpriseCreate) => {
-      let values = res;
-      let newVal = {
+      const values = res;
+      const newVal = {
         foundDate: moment(form.getFieldsValue().foundDate).format(
           'YYYY-MM-DD HH:MM:SS',
         ),
@@ -83,11 +83,11 @@ function Register() {
         contactAreaCode: form.getFieldsValue().contactAreaCode.pop(),
         operationPeriodType: Mage === null ? 1 : Mage,
       };
-      let val = { ...values, ...newVal, operationPeriodType: Number(Mage) };
+      const val = { ...values, ...newVal, operationPeriodType: Number(Mage) };
       // let produceAreaCodeStr = values.produceAreaCode[2];
       // //@ts-ignore
       // let regAreaCodeStr = values.regAreaCode[2];
-      //@ts-ignore
+      // @ts-ignore
       apiEnterpriseEdit({
         ...val,
         id: companyData.id
@@ -149,13 +149,14 @@ function Register() {
     }
   };
   const setDate = (e: boolean) => {
+    console.log(e, 'e=e=e=e', !e);
     form.setFieldsValue({
       ...form.getFieldsValue(),
       operationPeriodType: !e ? 2 : 1,
       operationPeriod: e ? '' : form.getFieldsValue().operationPeriod,
     });
     setMage(!e ? 1 : 2);
-    setMag(!e);
+    setMag(e);
     setShowDate(e ? '禁用' : '');
   };
   const setarea = (e: any, b: any) => {
@@ -175,6 +176,7 @@ function Register() {
     }
   };
   // 组织信息
+  // eslint-disable-next-line consistent-return
   const renderLeftItem = useCallback(() => {
     console.log(form.getFieldsValue().businessLicense, fileList);
     if (showLoad) {
@@ -192,13 +194,13 @@ function Register() {
         setDate,
         '',
         setarea,
-      ).map((item: any, index: number) => {
+      ).map((item: any) => {
         return (
           <Form.Item
             className={item.classNames ? style[item.classNames] : style.oneName}
-            key={index}
             label={item.name}
             name={item.title}
+            key={item.title}
             rules={item.require}
           >
             {item.label}
@@ -227,14 +229,15 @@ function Register() {
     if (user.orgId) {
       await apiSystemOrgDetail({ id: user.orgId ? user.orgId : '' }).then(
         (res: any) => {
-          let data = res.data;
+          const { data } = res;
           console.log(data, 'datadata');
           // @ts-ignore
           if (data.data.operationPeriodType !== null) {
             // @ts-ignore
             setMage(data.data.operationPeriodType);
             // @ts-ignore
-            setMag(data.data.operationPeriodType === 2 ? false : true);
+            // setMag(data.data.operationPeriodType === 2 ? false : true);
+            setMag(data.data.operationPeriodType === 2);
           }
           console.log(
             getCurrency.filter(
@@ -316,19 +319,17 @@ function Register() {
       </Form>
       <Form.Item className={style.listBtn}>
         {isEdit ? (
-          <>
-            <Permission flag='/business-infor/detail/edit'>
-              <Button
-                type='primary'
-                className={style.button}
-                onClick={async () => {
-                  changeIsEdit(false);
-                }}
-              >
-                编辑
-              </Button>
-            </Permission>
-          </>
+          <Permission flag='/business-infor/detail/edit'>
+            <Button
+              type='primary'
+              className={style.button}
+              onClick={async () => {
+                changeIsEdit(false);
+              }}
+            >
+              编辑
+            </Button>
+          </Permission>
         ) : (
           <>
             <Button
@@ -381,7 +382,7 @@ function Register() {
           >
             返回
           </Button>,
-          <Permission flag={'/business-infor/list'}>
+          <Permission flag='/business-infor/list'>
             <Button
               type='primary'
               onClick={() => {
@@ -401,7 +402,7 @@ function Register() {
         }}
       >
         <IconFont
-          type={'icon-icon-zhifuchenggong'}
+          type='icon-icon-zhifuchenggong'
           style={{ fontSize: ' 64px', display: 'block', marginBottom: '20px' }}
         />
         <span

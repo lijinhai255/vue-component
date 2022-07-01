@@ -37,36 +37,34 @@ function Layout(props: LayoutProps) {
     // console.log(visible, 'kjdksajkd');
   }, []);
   return (
-    <>
-      <section
-        className={classnames({
-          layout: true,
-          'layout--side-bar': props.layout === 'side',
-          'layout--weak': props.colorWeak,
-        })}
-      >
-        {props.layout === 'side' && <Sidebar />}
-        <section className={classnames('layout__main')}>
-          <Header />
-          <div
-            className={classnames('layout__container', {
-              'layout__container--fix': props.fixedHeader,
-              'layout__container--fixed':
-                props.contentWidth === 'fixed' && props.layout === 'top',
-            })}
+    <section
+      className={classnames({
+        layout: true,
+        'layout--side-bar': props.layout === 'side',
+        'layout--weak': props.colorWeak,
+      })}
+    >
+      <Header />
+      {props.layout === 'side' && <Sidebar />}
+      <section className={classnames('layout__main')}>
+        <div
+          className={classnames('layout__container', {
+            'layout__container--fix': props.fixedHeader,
+            'layout__container--fixed':
+              props.contentWidth === 'fixed' && props.layout === 'top',
+          })}
+        >
+          <Breadcrumb />
+          <Suspense
+            fallback={<Spin size='large' className='layout__loading' />}
           >
-            <Breadcrumb />
-            <Suspense
-              fallback={<Spin size='large' className='layout__loading' />}
-            >
-              <MainRoutes />
-            </Suspense>
-          </div>
-        </section>
-
-        {/* <LayoutSettings /> */}
+            <MainRoutes />
+          </Suspense>
+        </div>
       </section>
-    </>
+
+      {/* <LayoutSettings /> */}
+    </section>
   );
 }
 

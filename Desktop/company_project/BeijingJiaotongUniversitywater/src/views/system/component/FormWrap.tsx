@@ -3,7 +3,7 @@ import { memo, ReactNode } from 'react';
 interface FormWrapProps {
   children: ReactNode;
   className?: string;
-  style?: {};
+  style?: any;
 }
 
 function FormWrap({ children, className, style }: FormWrapProps) {

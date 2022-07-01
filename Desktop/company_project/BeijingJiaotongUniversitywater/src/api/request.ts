@@ -36,7 +36,7 @@ axios.interceptors.request.use(
     if (getToken()) {
       const token = `${getToken()}`;
       // eslint-disable-next-line
-      config.headers.Authorization = token;
+      config.headers.Authorization = 'JWT ' + token;
     }
 
     return config;
@@ -69,7 +69,9 @@ axios.interceptors.response.use(
         okText: '确定',
         cancelButtonProps: { style: { display: 'none' } },
         onOk() {
-          window.location.href = `/dashborad/intro`;
+          // window.location.href = `/dashborad/intro`;
+          // 由于修改个人用户权限点，后端接口处理有问题，临时403让重新登录-22.06.09
+          window.location.href = `/system/login`;
         },
         onCancel() {},
       });
@@ -156,7 +158,7 @@ axios.interceptors.response.use(
 export function request<T>(options: AxiosRequestConfig) {
   return axios.request<T>({
     ...options,
-    baseURL: process.env.REACT_APP_API_LOGIN_URL,
+    baseURL: `${process.env.REACT_APP_API_LOGIN_URL}/api/v1`,
   });
 }
 export function Qrequest<T>(options: AxiosRequestConfig) {

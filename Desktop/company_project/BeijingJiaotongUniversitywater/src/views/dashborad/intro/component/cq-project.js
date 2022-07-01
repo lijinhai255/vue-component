@@ -1,7 +1,7 @@
 export const themObj =
 {
     "color": [
-        "#09c199",
+        "#005BAC",
         "#22c3aa",
         "#7bd9a5",
         "#d0648a",
@@ -110,7 +110,7 @@ export const themObj =
         "symbol": "circle",
         "smooth": true,
         "color": [
-            "#09c199",
+            "#005BAC",
             "#22c3aa",
             "#7bd9a5",
             "#d0648a",

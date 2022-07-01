@@ -1,11 +1,22 @@
-/* eslint-disable no-nested-ternary */
+/**
+ * @file 搜索组件
+ */
 import { memo, ReactElement, useEffect } from 'react';
-import { Button, Input, Form, Select, DatePicker } from 'antd';
+import {
+  Button,
+  Input,
+  Form,
+  Select,
+  DatePicker,
+  FormInstance,
+  Col,
+} from 'antd';
 import { ButtonType } from 'antd/es/button/button';
-import './index.less';
-import { IconFont } from '@/components/IconFont';
+import { Rule } from 'antd/lib/form';
+import classNames from 'classnames';
+import { SearchOutlined } from '@ant-design/icons';
 import style from './searchform.module.scss';
-const { Option } = Select;
+
 const { RangePicker } = DatePicker;
 export interface SearchFormAction {
   name: string;
@@ -13,45 +24,89 @@ export interface SearchFormAction {
 }
 
 export interface SearchFormItem {
+  /**
+   * formItems name
+   */
   name: string;
-  label: string;
-  placeholder?: string;
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  rules?: object[];
-  render?: ReactElement;
-  type?: string;
+  /**
+   * formItems label
+   */
+  label?: string;
+  /**
+   * 渲染到具体表单上的类名
+   */
+  className?: string;
   class?: string;
+  placeholder?: string;
+  rules?: Rule[];
+  render?: ReactElement;
+  maxLength?: number;
+  showSearch?: boolean;
+  type?:
+    | 'input'
+    | 'Input'
+    | 'select'
+    | 'Select'
+    | 'selectTimck'
+    | 'SelectLists';
+  /**
+   * select 框的参数
+   */
   searchOptionData?: {
     label?: string;
     value?: string | number;
     dictLabel?: string;
     dictValue?: string;
+    code?: string;
+    name?: string;
   }[];
+  selecData?: string;
+  onChange?: (v: any) => void;
 }
 
-interface SearchFormProps {
+export interface SearchFormProps<T = any> {
   formList: SearchFormItem[];
-  onSearch: (values: any) => void;
-  returnNavText?: string;
+  getForm?: () => (f: FormInstance<T>) => void;
+  onSearch: (values: T) => void;
   actions?: SearchFormAction[];
-  onClick: (index: number) => void;
+  onClick?: (index: number) => void;
   showLabel?: boolean;
-  searchOptionData?: string[];
+  searchOptionData?: {
+    label?: string;
+    value?: string | number;
+    dictLabel?: string;
+    dictValue?: string;
+    code?: string;
+    name?: string;
+  }[];
   ref?: any;
   visible?: boolean;
-  addurl?: () => void;
+  className?: string;
 }
 
-function SearchForm(props: SearchFormProps) {
+function SearchForm({ getForm, ...props }: SearchFormProps) {
+  const { className } = props;
   const [form] = Form.useForm();
+  getForm?.()(form);
   const reset = () => {
-    console.log('reset=reset=reset');
     form.resetFields();
     props.onSearch({});
   };
   useEffect(() => {
     reset();
   }, [props.visible]);
+  // 设置默认值
+  const setDefauleValue = () => {
+    form.setFieldsValue({
+      ...form.getFieldsValue(true),
+      auditStatus: '0',
+    });
+  };
+  useEffect(() => {
+    if (window.location.pathname === '/emission-factor/examine') {
+      setDefauleValue();
+    }
+  }, []);
 
   const onSearch = async () => {
     await form.validateFields().then(res => {
@@ -62,94 +117,121 @@ function SearchForm(props: SearchFormProps) {
     if (item.render) {
       return item.render;
     }
-    if (item.type === 'Select') {
+    if (item.type?.toLowerCase() === 'select') {
       return (
         <Select
-          placeholder='请选择'
-          style={{ width: item.class || '140px', borderRadius: '4px' }}
-        >
-          {props?.searchOptionData
-            ? props?.searchOptionData.map(it => (
-                <Option value={Number(it)}>{it}</Option>
-              ))
-            : item?.searchOptionData &&
-              item?.searchOptionData.map(it => (
-                <Option
-                  value={
-                    it?.value ? it?.value : it?.dictValue ? it?.dictValue : 0
-                  }
-                >
-                  {it?.label ? it.label : it.dictLabel}
-                </Option>
-              ))}
-        </Select>
+          className={item?.className}
+          placeholder={item.placeholder ?? '请选择'}
+          onChange={item?.onChange}
+          aria-label={item.name}
+          dropdownClassName={`search-form-select-${item.name}`}
+          style={{ width: '100%' }}
+          // @ts-ignore
+          options={
+            props?.searchOptionData
+              ? props?.searchOptionData.map(it => ({ label: it, value: it }))
+              : item?.searchOptionData?.map(it => ({
+                  value: it?.value || it?.dictValue || it.dictLabel,
+                  label: it?.label || it.dictLabel,
+                }))
+          }
+        />
       );
     }
-    if (item.type === 'SelectLists') {
+    if (item?.type === 'SelectLists') {
       return (
         <Select
           placeholder={item.placeholder}
-          style={{ width: item.class || '140px', borderRadius: '4px' }}
-        >
-          {props?.searchOptionData
-            ? props?.searchOptionData.map((it: any) => (
-                <Option value={Number(it.code)}>{it.name}</Option>
-              ))
-            : ''}
-        </Select>
+          style={{ width: '100%' }}
+          // @ts-ignore
+          options={
+            props?.searchOptionData
+              ? props?.searchOptionData.map(it => ({ label: it, value: it }))
+              : item?.searchOptionData?.map(it => ({
+                  value: it?.value || it?.dictValue || it.dictLabel,
+                  label: it?.label || it.dictLabel,
+                }))
+          }
+        />
       );
     }
     if (item.type === 'selectTimck') {
       return (
+        // @ts-ignore
         <RangePicker
           format='YYYY-MM-DD'
-          style={{ width: item.class || '300px', borderRadius: '4px' }}
+          aria-label={item.name}
+          className={item?.className}
+          onChange={item.onChange}
         />
       );
     }
     return (
       <Input
-        placeholder={item.placeholder}
-        style={{ width: item.class || '', borderRadius: '4px' }}
-        className={style.searchipt}
+        maxLength={item?.maxLength}
+        className={item?.className}
+        aria-label={item.name}
+        placeholder={item.placeholder || '请输入'}
+        onChange={item?.onChange}
       />
     );
   };
   return (
     <Form
-      className={style.layout_search}
+      className={classNames('layout__search', style.formWrapper, className)}
       form={form}
       layout='inline'
       onFinish={onSearch}
-      style={{ flex: 1 }}
     >
       {props.formList.map((item: SearchFormItem) => (
-        <Form.Item
-          label={props.showLabel !== false && item.label ? item.label : ''}
-          key={item.name}
-          name={item.name}
-          rules={item.rules}
-          className={style.seachlist}
+        <Col
+          xxl={5}
+          md={8}
+          xl={8}
+          key={`${item.name}Search`}
+          style={{
+            paddingRight: '0',
+          }}
         >
-          {renderFromDom(item)}
-        </Form.Item>
+          <Form.Item
+            label={props.showLabel !== false && item.label ? item.label : ''}
+            key={item.name}
+            name={item.name}
+            rules={item.rules}
+          >
+            {renderFromDom(item)}
+          </Form.Item>
+        </Col>
       ))}
+      <div className={style.buttonGroup}>
+        <Form.Item>
+          <Button
+            aria-label='search-form-search'
+            htmlType='submit'
+            type='default'
+          >
+            <SearchOutlined />
+            查询
+          </Button>
+        </Form.Item>
 
-      <Form.Item className={style.seachlistbtn}>
-        <Button htmlType='submit' type='primary' className={style.searchbtn}>
-          <IconFont type='icon-icon-zhaxun' className={style.icon} />
-          <span>查询</span>
-        </Button>
-      </Form.Item>
-
-      <Form.Item style={{ marginBottom: '20px' }}>
-        <Button htmlType='reset' onClick={reset} className={style.searchbtn}>
-          重置
-        </Button>
-      </Form.Item>
+        <Form.Item>
+          <Button
+            aria-label='search-form-reset'
+            htmlType='reset'
+            onClick={reset}
+          >
+            重置
+          </Button>
+        </Form.Item>
+      </div>
       {props.actions?.map((action: SearchFormAction, index: number) => (
         <Form.Item key={action.name}>
-          <Button type={action.type} onClick={() => props.onClick(index)}>
+          <Button
+            aria-label={action.name}
+            type={action.type}
+            onClick={() => props?.onClick?.(index)}
+          >
             {action.name}
           </Button>
         </Form.Item>

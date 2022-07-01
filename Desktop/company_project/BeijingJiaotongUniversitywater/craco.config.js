@@ -10,11 +10,8 @@ module.exports = {
         lessLoaderOptions: {
           lessOptions: {
             modifyVars: {
-              '@primary-color': '#09C199',
-              '@border-radius-base': '4px',
-              '@menu-dark-bg': '#242424',
-              '@menu-dark-inline-submenu-bg': '#242424',
-              '@menuDarkColor': '#242424',
+              '@primary-color': '#005BAC',
+              '@menuDarkColor': '#FFFFFF',
             }, // 修改这里的颜色即可
             javascriptEnabled: true,
           },

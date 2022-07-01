@@ -1,6 +1,4 @@
-import { IconFont } from '@/components/IconFont';
 import { getToken } from '@utils/cookie';
-import VerifyUtils from '@/utils/verifty';
 import {
   Cascader,
   Checkbox,
@@ -12,18 +10,22 @@ import {
   Upload,
 } from 'antd';
 import { Rule } from 'antd/lib/form';
-import style from '../style.module.scss';
 import TextArea from 'antd/lib/input/TextArea';
+import BigNumber from 'bignumber.js';
+import style from '../style.module.scss';
+import VerifyUtils from '@/utils/verifty';
+import { IconFont } from '@/components/IconFont';
+
 const { Option } = Select;
 export const dataFilter = (
   CodeList: { code: number; name: string }[],
   code: number[] | [],
 ) => {
   if (CodeList && CodeList.length > 0) {
-    let Provincial = CodeList.filter((item: any) => item.code === code[0]);
+    const Provincial = CodeList.filter((item: any) => item.code === code[0]);
     if (Provincial.length > 0) {
       // @ts-ignore
-      let urban = Provincial[0].children.filter(
+      const urban = Provincial[0].children.filter(
         (item: any) => item.code === code[1],
       );
       let areas: string;
@@ -234,9 +236,9 @@ export const EnterpriseContentList = (
       require: [{ required: true, message: '请选择注册资本币种' }],
       label: (
         <Select disabled={disabled} placeholder='注册资本币种'>
-          {getCurrency.map((item: any, index: number) => {
+          {getCurrency.map(item => {
             return (
-              <Option value={item.id} key={index}>
+              <Option value={item.id} key={item.id}>
                 {item.name}
               </Option>
             );
@@ -258,11 +260,13 @@ export const EnterpriseContentList = (
       placeholder: '请输入',
       require: [
         { required: true, message: '请输入注册资本' },
-        //@ts-ignore
+        // @ts-ignore
         () => ({
-          //@ts-ignore
+          // @ts-ignore
           validator(_, value) {
-            if (Number(value) > Number(999999999999999.9999) === false) {
+            if (
+              new BigNumber(value).lte(new BigNumber('999999999999999.9999'))
+            ) {
               return Promise.resolve();
             }
             return Promise.reject(new Error('最大可输入999999999999999!'));
@@ -272,9 +276,8 @@ export const EnterpriseContentList = (
       label: (
         <Input
           disabled={disabled}
-          type={'number'}
+          type='number'
           min={1}
-          max={999999999999999.9999}
           placeholder='注册资本（万元）'
         />
       ),
@@ -293,6 +296,7 @@ export const EnterpriseContentList = (
       placeholder: '请输入',
       require: [{ required: true, message: '请选择成立日期' }],
       label: (
+        // @ts-ignore
         <DatePicker
           disabled={disabled}
           placeholder='成立日期'
@@ -323,6 +327,7 @@ export const EnterpriseContentList = (
               marginBottom: '0px',
             }}
           >
+            {/*             
             <DatePicker
               disabled={
                 disabled ? disabled : showDate === '禁用' ? true : false
@@ -332,7 +337,7 @@ export const EnterpriseContentList = (
               onChange={(e, b) => {
                 if (getDate) getDate(b);
               }}
-            />
+            /> */}
           </Form.Item>
           <Form.Item className={style.check}>
             <Checkbox
@@ -691,9 +696,7 @@ export const EnterpriseContentList = (
       classNames: 'oneName',
       type: 'input',
       title: 'contactEmail',
-      label: (
-        <Input type={'email'} disabled={disabled} placeholder='联系电话' />
-      ),
+      label: <Input type='email' disabled={disabled} placeholder='联系电话' />,
       disabled: true,
       placeholder: '请输入',
       require: [
@@ -777,7 +780,7 @@ export const EnterpriseContentList = (
       title: 'employeeNumber',
       label: (
         <Input
-          type={'number'}
+          type='number'
           max={9999999}
           min={1}
           disabled={disabled}
@@ -804,6 +807,7 @@ export const EnterpriseContentList = (
       title: 'approvalDate',
       classNames: 'oneName',
       label: (
+        // @ts-ignore
         <DatePicker
           disabled={disabled}
           placeholder='核准日期（核准设立）'
@@ -834,9 +838,7 @@ export const EnterpriseContentList = (
       type: 'input',
       title: 'enterpriseEmail',
       classNames: 'oneName',
-      label: (
-        <Input disabled={disabled} placeholder='企业邮箱' type={'email'} />
-      ),
+      label: <Input disabled={disabled} placeholder='企业邮箱' type='email' />,
       disabled: true,
       placeholder: '请输入',
       require: [
@@ -944,7 +946,8 @@ export const EnterpriseContentList = (
                     src={fileList[0].url}
                     style={{ width: '138px', height: '80px' }}
                     className={style.picuplod}
-                  ></img>
+                    alt=''
+                  />
                   <div className={style.centericon}>
                     <div>
                       <IconFont
@@ -955,23 +958,25 @@ export const EnterpriseContentList = (
                           e.nativeEvent.stopImmediatePropagation();
                           if (removetem) removetem('查看');
                         }}
-                      />{' '}
-                      <IconFont
-                        type='icon-icon-shanshu-2'
-                        style={{ fontSize: '18px' }}
-                        onClick={e => {
-                          e.stopPropagation();
-                          e.nativeEvent.stopImmediatePropagation();
-                          if (removetem) removetem('删除');
-                        }}
                       />
+                      {!disabled && (
+                        <IconFont
+                          type='icon-icon-shanshu-2'
+                          style={{ fontSize: '18px' }}
+                          onClick={e => {
+                            e.stopPropagation();
+                            e.nativeEvent.stopImmediatePropagation();
+                            if (removetem) removetem('删除');
+                          }}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
               ) : (
                 <div className={style.picturecardant}>
                   <IconFont
-                    type={'icon-icon-tianjia-1'}
+                    type='icon-icon-tianjia-1'
                     style={{ fontSize: '18px', color: '#999999' }}
                   />
                   <div>上传图片</div>
@@ -984,7 +989,7 @@ export const EnterpriseContentList = (
           </div>
           <Modal
             visible={previewVisible}
-            title={'查看'}
+            title='查看'
             footer={null}
             onCancel={() => {
               if (removetem) removetem('查看');

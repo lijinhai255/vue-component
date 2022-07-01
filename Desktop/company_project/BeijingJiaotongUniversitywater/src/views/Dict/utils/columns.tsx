@@ -5,13 +5,13 @@
 import { Button } from 'antd';
 import { ColumnType } from 'antd/es/table';
 import { Dictionary } from 'lodash';
-import * as H from 'history';
 import { TableColumnWidth } from '@/components/Table/TableColumnWidth';
+import { RouterProps } from 'react-router-dom';
 
 type DictColumnProps<T> = {
   onEdit?: (record: T) => void;
   updateStatus: (record: T) => void;
-  history: H.History<H.LocationState>;
+  history: RouterProps['history'];
 };
 export const useDictColumn = <T extends Dictionary<any>>({
   onEdit,
