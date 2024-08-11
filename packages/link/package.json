@@ -1,5 +1,5 @@
 {
-  "name": "lg-link",
+  "name": "elv-link",
   "version": "0.0.4",
   "description": "lg-link component",
   "main": "dist/cjs/index.js",
@@ -9,5 +9,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": []
+  "keywords": [],
+  "gitHead": "d6d8518be4423c66f6f177b61851c24ba116e172"
 }
